@@ -1,0 +1,1358 @@
+#!name=BlockAds 去重补充
+#!desc=配合2026-09-10版blockAds使用：保留AllInOne、HTTPDNS及YouTube未覆盖内容。安装后停用原AllInOne、HTTPDNS、YouTube Enhance、广告联盟。静态去重及接口排除；尚待手机实测。
+#!author=原规则 blackmatrix7、fmz200、可莉、VirgilClyne、Maasea；本文件为本地去重整理
+#!arguments=屏蔽上传按钮:true,屏蔽选段按钮:true,屏蔽Shorts按钮:false,字幕翻译语言:off,启用调试模式:false
+#!arguments-desc=YouTube参数仅传给补充接口；合集已覆盖接口仍由blockAds处理，独立Enhance的参数不会完整生效。
+# 基准 SHA256：37d93d7150ab77843adba9b2d8ece50c58832c05c3b66ed822e843311fdf4c5f
+# 本地补充无远程更新地址；blockAds更新后需要重新比对。
+# 复杂正则采用同服务接口的排除条件，优先交给blockAds处理；不能证明任意正则之间完全不重叠。
+# 来源：用户上传的 AllInOne.sgmodule、blockHTTPDNS.module、YouTube.Enhance.sgmodule、AffiliateMarketing.sgmodule。
+# 上游：https://github.com/blackmatrix7/ios_rule_script
+# 上游：https://github.com/fmz200/wool_scripts
+# 上游：https://github.com/Maasea/sgmodule
+
+[General]
+force-http-engine-hosts = %APPEND% *.ott.cibntv.net,intl.iqiyi.com,maicai.api.ddxq.mobi,mobileapi-v6.elong.com,weibointl.api.weibo.cn,wmapi.meituan.com
+
+[Rule]
+# 来源：AllInOne.sgmodule
+DOMAIN,apm.zhihu.com,REJECT
+# 来源：AllInOne.sgmodule
+DOMAIN,duga.zhihu.com,REJECT
+# 来源：AllInOne.sgmodule
+URL-REGEX,^(?!(?:^https:\/\/(?:api|page-info)\.zhihu\.com\/(?:answers|articles)\/v2\/\d+|^https:\/\/api\.zhihu\.com\/(?:bazaar\/float_window|market\/popovers_v2)|^https:\/\/api\.zhihu\.com\/(?:moments\/lastread|drama\/hot-drama-list)|^https:\/\/api\.zhihu\.com\/(?:moments_v3|topstory\/hot-lists\/total|topstory\/recommend)|^https:\/\/api\.zhihu\.com\/ab\/api\/v1\/products\/zhihu\/platforms\/ios\/config|^https:\/\/api\.zhihu\.com\/ad-style-service\/request|^https:\/\/api\.zhihu\.com\/bazaar\/vip_tab\/header\?|^https:\/\/api\.zhihu\.com\/comment_v5\/(?:articles|answers)\/\d+\/list-headers|^https:\/\/api\.zhihu\.com\/commercial_api\/(?:answer\/\d+\/bottom-v2|article\/\d+\/bottom-v2|banners_v3\/app_topstory_banner|launch_v2|real_time_launch_v2)|^https:\/\/api\.zhihu\.com\/commercial_api\/app_float_layer|^https:\/\/api\.zhihu\.com\/content-distribution-core\/bubble\/common\/settings|^https:\/\/api\.zhihu\.com\/distribute\/rhea\/qa_ad_card\/h5\/recommendation\?|^https:\/\/api\.zhihu\.com\/feed\/render\/tab\/config\?|^https:\/\/api\.zhihu\.com\/me\/guides|^https:\/\/api\.zhihu\.com\/next-(?:bff|data|render)|^https:\/\/api\.zhihu\.com\/prague\/related_suggestion_native\/feed\?|^https:\/\/api\.zhihu\.com\/questions\/\d+(?:\/answers|\/feeds|\?include=)|^https:\/\/api\.zhihu\.com\/root\/tab|^https:\/\/api\.zhihu\.com\/root\/window|^https:\/\/api\.zhihu\.com\/search\/(hot_search|preset_words)|^https:\/\/api\.zhihu\.com\/search\/recommend_query\/v2\?|^https:\/\/api\.zhihu\.com\/unlimited\/go\/my_card|^https:\/\/api\.zhihu\.com\/v2\/topstory\/hot-lists\/everyone-seeing\?|^https:\/\/api\.zhihu\.com\/v5\.1\/topics\/answer\/\d+\/relation|^https:\/\/appcloud2\.zhihu\.com\/v3\/config|^https:\/\/appcloud2\.zhihu\.com\/v3\/resource\?group_name=mp|^https:\/\/link\.zhihu\.com\/\?target=(?:https?)?(?:%3A|:)?(?:\/\/|%2F%2F)?(.*)|^https:\/\/m-cloud\.zhihu\.com\/api\/cloud\/config\/all\?|^https:\/\/www\.zhihu\.com\/api\/v4/(?:answers|questions)\/\d+/related-readings|^https:\/\/www\.zhihu\.com\/api\/v4\/(?:articles|answers)\/\d+\/recommendations?\?|^https:\/\/www\.zhihu\.com\/api\/v4\/hot_recommendation|^https:\/\/www\.zhihu\.com\/api\/v4\/mcn\/v2\/linkcards\?|^https:\/\/www\.zhihu\.com\/api\/v4\/search\/related_queries\/(?:article|answer)\/\d+|^https:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/mobile_banner|^https:\/\/zhstatic\.zhihu\.com\/brand-ad|^https:\/\/zhuanlan\.zhihu\.com\/api\/articles\/\d+\/recommendation))https:\/\/api\.zhihu\.com\/guide_center\/strategy,REJECT
+# 来源：AllInOne.sgmodule
+URL-REGEX,^(?!(?:^https:\/\/(?:api|page-info)\.zhihu\.com\/(?:answers|articles)\/v2\/\d+|^https:\/\/api\.zhihu\.com\/(?:bazaar\/float_window|market\/popovers_v2)|^https:\/\/api\.zhihu\.com\/(?:moments\/lastread|drama\/hot-drama-list)|^https:\/\/api\.zhihu\.com\/(?:moments_v3|topstory\/hot-lists\/total|topstory\/recommend)|^https:\/\/api\.zhihu\.com\/ab\/api\/v1\/products\/zhihu\/platforms\/ios\/config|^https:\/\/api\.zhihu\.com\/ad-style-service\/request|^https:\/\/api\.zhihu\.com\/bazaar\/vip_tab\/header\?|^https:\/\/api\.zhihu\.com\/comment_v5\/(?:articles|answers)\/\d+\/list-headers|^https:\/\/api\.zhihu\.com\/commercial_api\/(?:answer\/\d+\/bottom-v2|article\/\d+\/bottom-v2|banners_v3\/app_topstory_banner|launch_v2|real_time_launch_v2)|^https:\/\/api\.zhihu\.com\/commercial_api\/app_float_layer|^https:\/\/api\.zhihu\.com\/content-distribution-core\/bubble\/common\/settings|^https:\/\/api\.zhihu\.com\/distribute\/rhea\/qa_ad_card\/h5\/recommendation\?|^https:\/\/api\.zhihu\.com\/feed\/render\/tab\/config\?|^https:\/\/api\.zhihu\.com\/me\/guides|^https:\/\/api\.zhihu\.com\/next-(?:bff|data|render)|^https:\/\/api\.zhihu\.com\/prague\/related_suggestion_native\/feed\?|^https:\/\/api\.zhihu\.com\/questions\/\d+(?:\/answers|\/feeds|\?include=)|^https:\/\/api\.zhihu\.com\/root\/tab|^https:\/\/api\.zhihu\.com\/root\/window|^https:\/\/api\.zhihu\.com\/search\/(hot_search|preset_words)|^https:\/\/api\.zhihu\.com\/search\/recommend_query\/v2\?|^https:\/\/api\.zhihu\.com\/unlimited\/go\/my_card|^https:\/\/api\.zhihu\.com\/v2\/topstory\/hot-lists\/everyone-seeing\?|^https:\/\/api\.zhihu\.com\/v5\.1\/topics\/answer\/\d+\/relation|^https:\/\/appcloud2\.zhihu\.com\/v3\/config|^https:\/\/appcloud2\.zhihu\.com\/v3\/resource\?group_name=mp|^https:\/\/link\.zhihu\.com\/\?target=(?:https?)?(?:%3A|:)?(?:\/\/|%2F%2F)?(.*)|^https:\/\/m-cloud\.zhihu\.com\/api\/cloud\/config\/all\?|^https:\/\/www\.zhihu\.com\/api\/v4/(?:answers|questions)\/\d+/related-readings|^https:\/\/www\.zhihu\.com\/api\/v4\/(?:articles|answers)\/\d+\/recommendations?\?|^https:\/\/www\.zhihu\.com\/api\/v4\/hot_recommendation|^https:\/\/www\.zhihu\.com\/api\/v4\/mcn\/v2\/linkcards\?|^https:\/\/www\.zhihu\.com\/api\/v4\/search\/related_queries\/(?:article|answer)\/\d+|^https:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/mobile_banner|^https:\/\/zhstatic\.zhihu\.com\/brand-ad|^https:\/\/zhuanlan\.zhihu\.com\/api\/articles\/\d+\/recommendation))https?:\/\/api\.zhihu\.com\/(notifications\/v\d\/count),REJECT-DICT
+# 来源：AllInOne.sgmodule
+URL-REGEX,^(?!(?:^https:\/\/(?:api|page-info)\.zhihu\.com\/(?:answers|articles)\/v2\/\d+|^https:\/\/api\.zhihu\.com\/(?:bazaar\/float_window|market\/popovers_v2)|^https:\/\/api\.zhihu\.com\/(?:moments\/lastread|drama\/hot-drama-list)|^https:\/\/api\.zhihu\.com\/(?:moments_v3|topstory\/hot-lists\/total|topstory\/recommend)|^https:\/\/api\.zhihu\.com\/ab\/api\/v1\/products\/zhihu\/platforms\/ios\/config|^https:\/\/api\.zhihu\.com\/ad-style-service\/request|^https:\/\/api\.zhihu\.com\/bazaar\/vip_tab\/header\?|^https:\/\/api\.zhihu\.com\/comment_v5\/(?:articles|answers)\/\d+\/list-headers|^https:\/\/api\.zhihu\.com\/commercial_api\/(?:answer\/\d+\/bottom-v2|article\/\d+\/bottom-v2|banners_v3\/app_topstory_banner|launch_v2|real_time_launch_v2)|^https:\/\/api\.zhihu\.com\/commercial_api\/app_float_layer|^https:\/\/api\.zhihu\.com\/content-distribution-core\/bubble\/common\/settings|^https:\/\/api\.zhihu\.com\/distribute\/rhea\/qa_ad_card\/h5\/recommendation\?|^https:\/\/api\.zhihu\.com\/feed\/render\/tab\/config\?|^https:\/\/api\.zhihu\.com\/me\/guides|^https:\/\/api\.zhihu\.com\/next-(?:bff|data|render)|^https:\/\/api\.zhihu\.com\/prague\/related_suggestion_native\/feed\?|^https:\/\/api\.zhihu\.com\/questions\/\d+(?:\/answers|\/feeds|\?include=)|^https:\/\/api\.zhihu\.com\/root\/tab|^https:\/\/api\.zhihu\.com\/root\/window|^https:\/\/api\.zhihu\.com\/search\/(hot_search|preset_words)|^https:\/\/api\.zhihu\.com\/search\/recommend_query\/v2\?|^https:\/\/api\.zhihu\.com\/unlimited\/go\/my_card|^https:\/\/api\.zhihu\.com\/v2\/topstory\/hot-lists\/everyone-seeing\?|^https:\/\/api\.zhihu\.com\/v5\.1\/topics\/answer\/\d+\/relation|^https:\/\/appcloud2\.zhihu\.com\/v3\/config|^https:\/\/appcloud2\.zhihu\.com\/v3\/resource\?group_name=mp|^https:\/\/link\.zhihu\.com\/\?target=(?:https?)?(?:%3A|:)?(?:\/\/|%2F%2F)?(.*)|^https:\/\/m-cloud\.zhihu\.com\/api\/cloud\/config\/all\?|^https:\/\/www\.zhihu\.com\/api\/v4/(?:answers|questions)\/\d+/related-readings|^https:\/\/www\.zhihu\.com\/api\/v4\/(?:articles|answers)\/\d+\/recommendations?\?|^https:\/\/www\.zhihu\.com\/api\/v4\/hot_recommendation|^https:\/\/www\.zhihu\.com\/api\/v4\/mcn\/v2\/linkcards\?|^https:\/\/www\.zhihu\.com\/api\/v4\/search\/related_queries\/(?:article|answer)\/\d+|^https:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/mobile_banner|^https:\/\/zhstatic\.zhihu\.com\/brand-ad|^https:\/\/zhuanlan\.zhihu\.com\/api\/articles\/\d+\/recommendation))https?:\/\/api\.zhihu\.com\/api\/v4\/ecom_data\/config,REJECT-DICT
+# 来源：AllInOne.sgmodule
+URL-REGEX,^(?!(?:^https:\/\/(?:api|page-info)\.zhihu\.com\/(?:answers|articles)\/v2\/\d+|^https:\/\/api\.zhihu\.com\/(?:bazaar\/float_window|market\/popovers_v2)|^https:\/\/api\.zhihu\.com\/(?:moments\/lastread|drama\/hot-drama-list)|^https:\/\/api\.zhihu\.com\/(?:moments_v3|topstory\/hot-lists\/total|topstory\/recommend)|^https:\/\/api\.zhihu\.com\/ab\/api\/v1\/products\/zhihu\/platforms\/ios\/config|^https:\/\/api\.zhihu\.com\/ad-style-service\/request|^https:\/\/api\.zhihu\.com\/bazaar\/vip_tab\/header\?|^https:\/\/api\.zhihu\.com\/comment_v5\/(?:articles|answers)\/\d+\/list-headers|^https:\/\/api\.zhihu\.com\/commercial_api\/(?:answer\/\d+\/bottom-v2|article\/\d+\/bottom-v2|banners_v3\/app_topstory_banner|launch_v2|real_time_launch_v2)|^https:\/\/api\.zhihu\.com\/commercial_api\/app_float_layer|^https:\/\/api\.zhihu\.com\/content-distribution-core\/bubble\/common\/settings|^https:\/\/api\.zhihu\.com\/distribute\/rhea\/qa_ad_card\/h5\/recommendation\?|^https:\/\/api\.zhihu\.com\/feed\/render\/tab\/config\?|^https:\/\/api\.zhihu\.com\/me\/guides|^https:\/\/api\.zhihu\.com\/next-(?:bff|data|render)|^https:\/\/api\.zhihu\.com\/prague\/related_suggestion_native\/feed\?|^https:\/\/api\.zhihu\.com\/questions\/\d+(?:\/answers|\/feeds|\?include=)|^https:\/\/api\.zhihu\.com\/root\/tab|^https:\/\/api\.zhihu\.com\/root\/window|^https:\/\/api\.zhihu\.com\/search\/(hot_search|preset_words)|^https:\/\/api\.zhihu\.com\/search\/recommend_query\/v2\?|^https:\/\/api\.zhihu\.com\/unlimited\/go\/my_card|^https:\/\/api\.zhihu\.com\/v2\/topstory\/hot-lists\/everyone-seeing\?|^https:\/\/api\.zhihu\.com\/v5\.1\/topics\/answer\/\d+\/relation|^https:\/\/appcloud2\.zhihu\.com\/v3\/config|^https:\/\/appcloud2\.zhihu\.com\/v3\/resource\?group_name=mp|^https:\/\/link\.zhihu\.com\/\?target=(?:https?)?(?:%3A|:)?(?:\/\/|%2F%2F)?(.*)|^https:\/\/m-cloud\.zhihu\.com\/api\/cloud\/config\/all\?|^https:\/\/www\.zhihu\.com\/api\/v4/(?:answers|questions)\/\d+/related-readings|^https:\/\/www\.zhihu\.com\/api\/v4\/(?:articles|answers)\/\d+\/recommendations?\?|^https:\/\/www\.zhihu\.com\/api\/v4\/hot_recommendation|^https:\/\/www\.zhihu\.com\/api\/v4\/mcn\/v2\/linkcards\?|^https:\/\/www\.zhihu\.com\/api\/v4\/search\/related_queries\/(?:article|answer)\/\d+|^https:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/mobile_banner|^https:\/\/zhstatic\.zhihu\.com\/brand-ad|^https:\/\/zhuanlan\.zhihu\.com\/api\/articles\/\d+\/recommendation))https?:\/\/api\.zhihu\.com\/bazaar\/float_window,REJECT
+# 来源：AllInOne.sgmodule
+URL-REGEX,^(?!(?:^https:\/\/(?:api|page-info)\.zhihu\.com\/(?:answers|articles)\/v2\/\d+|^https:\/\/api\.zhihu\.com\/(?:bazaar\/float_window|market\/popovers_v2)|^https:\/\/api\.zhihu\.com\/(?:moments\/lastread|drama\/hot-drama-list)|^https:\/\/api\.zhihu\.com\/(?:moments_v3|topstory\/hot-lists\/total|topstory\/recommend)|^https:\/\/api\.zhihu\.com\/ab\/api\/v1\/products\/zhihu\/platforms\/ios\/config|^https:\/\/api\.zhihu\.com\/ad-style-service\/request|^https:\/\/api\.zhihu\.com\/bazaar\/vip_tab\/header\?|^https:\/\/api\.zhihu\.com\/comment_v5\/(?:articles|answers)\/\d+\/list-headers|^https:\/\/api\.zhihu\.com\/commercial_api\/(?:answer\/\d+\/bottom-v2|article\/\d+\/bottom-v2|banners_v3\/app_topstory_banner|launch_v2|real_time_launch_v2)|^https:\/\/api\.zhihu\.com\/commercial_api\/app_float_layer|^https:\/\/api\.zhihu\.com\/content-distribution-core\/bubble\/common\/settings|^https:\/\/api\.zhihu\.com\/distribute\/rhea\/qa_ad_card\/h5\/recommendation\?|^https:\/\/api\.zhihu\.com\/feed\/render\/tab\/config\?|^https:\/\/api\.zhihu\.com\/me\/guides|^https:\/\/api\.zhihu\.com\/next-(?:bff|data|render)|^https:\/\/api\.zhihu\.com\/prague\/related_suggestion_native\/feed\?|^https:\/\/api\.zhihu\.com\/questions\/\d+(?:\/answers|\/feeds|\?include=)|^https:\/\/api\.zhihu\.com\/root\/tab|^https:\/\/api\.zhihu\.com\/root\/window|^https:\/\/api\.zhihu\.com\/search\/(hot_search|preset_words)|^https:\/\/api\.zhihu\.com\/search\/recommend_query\/v2\?|^https:\/\/api\.zhihu\.com\/unlimited\/go\/my_card|^https:\/\/api\.zhihu\.com\/v2\/topstory\/hot-lists\/everyone-seeing\?|^https:\/\/api\.zhihu\.com\/v5\.1\/topics\/answer\/\d+\/relation|^https:\/\/appcloud2\.zhihu\.com\/v3\/config|^https:\/\/appcloud2\.zhihu\.com\/v3\/resource\?group_name=mp|^https:\/\/link\.zhihu\.com\/\?target=(?:https?)?(?:%3A|:)?(?:\/\/|%2F%2F)?(.*)|^https:\/\/m-cloud\.zhihu\.com\/api\/cloud\/config\/all\?|^https:\/\/www\.zhihu\.com\/api\/v4/(?:answers|questions)\/\d+/related-readings|^https:\/\/www\.zhihu\.com\/api\/v4\/(?:articles|answers)\/\d+\/recommendations?\?|^https:\/\/www\.zhihu\.com\/api\/v4\/hot_recommendation|^https:\/\/www\.zhihu\.com\/api\/v4\/mcn\/v2\/linkcards\?|^https:\/\/www\.zhihu\.com\/api\/v4\/search\/related_queries\/(?:article|answer)\/\d+|^https:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/mobile_banner|^https:\/\/zhstatic\.zhihu\.com\/brand-ad|^https:\/\/zhuanlan\.zhihu\.com\/api\/articles\/\d+\/recommendation))https?:\/\/api\.zhihu\.com\/bazaar\/vip_tab\/header,REJECT
+# 来源：AllInOne.sgmodule
+URL-REGEX,^(?!(?:^https:\/\/(?:api|page-info)\.zhihu\.com\/(?:answers|articles)\/v2\/\d+|^https:\/\/api\.zhihu\.com\/(?:bazaar\/float_window|market\/popovers_v2)|^https:\/\/api\.zhihu\.com\/(?:moments\/lastread|drama\/hot-drama-list)|^https:\/\/api\.zhihu\.com\/(?:moments_v3|topstory\/hot-lists\/total|topstory\/recommend)|^https:\/\/api\.zhihu\.com\/ab\/api\/v1\/products\/zhihu\/platforms\/ios\/config|^https:\/\/api\.zhihu\.com\/ad-style-service\/request|^https:\/\/api\.zhihu\.com\/bazaar\/vip_tab\/header\?|^https:\/\/api\.zhihu\.com\/comment_v5\/(?:articles|answers)\/\d+\/list-headers|^https:\/\/api\.zhihu\.com\/commercial_api\/(?:answer\/\d+\/bottom-v2|article\/\d+\/bottom-v2|banners_v3\/app_topstory_banner|launch_v2|real_time_launch_v2)|^https:\/\/api\.zhihu\.com\/commercial_api\/app_float_layer|^https:\/\/api\.zhihu\.com\/content-distribution-core\/bubble\/common\/settings|^https:\/\/api\.zhihu\.com\/distribute\/rhea\/qa_ad_card\/h5\/recommendation\?|^https:\/\/api\.zhihu\.com\/feed\/render\/tab\/config\?|^https:\/\/api\.zhihu\.com\/me\/guides|^https:\/\/api\.zhihu\.com\/next-(?:bff|data|render)|^https:\/\/api\.zhihu\.com\/prague\/related_suggestion_native\/feed\?|^https:\/\/api\.zhihu\.com\/questions\/\d+(?:\/answers|\/feeds|\?include=)|^https:\/\/api\.zhihu\.com\/root\/tab|^https:\/\/api\.zhihu\.com\/root\/window|^https:\/\/api\.zhihu\.com\/search\/(hot_search|preset_words)|^https:\/\/api\.zhihu\.com\/search\/recommend_query\/v2\?|^https:\/\/api\.zhihu\.com\/unlimited\/go\/my_card|^https:\/\/api\.zhihu\.com\/v2\/topstory\/hot-lists\/everyone-seeing\?|^https:\/\/api\.zhihu\.com\/v5\.1\/topics\/answer\/\d+\/relation|^https:\/\/appcloud2\.zhihu\.com\/v3\/config|^https:\/\/appcloud2\.zhihu\.com\/v3\/resource\?group_name=mp|^https:\/\/link\.zhihu\.com\/\?target=(?:https?)?(?:%3A|:)?(?:\/\/|%2F%2F)?(.*)|^https:\/\/m-cloud\.zhihu\.com\/api\/cloud\/config\/all\?|^https:\/\/www\.zhihu\.com\/api\/v4/(?:answers|questions)\/\d+/related-readings|^https:\/\/www\.zhihu\.com\/api\/v4\/(?:articles|answers)\/\d+\/recommendations?\?|^https:\/\/www\.zhihu\.com\/api\/v4\/hot_recommendation|^https:\/\/www\.zhihu\.com\/api\/v4\/mcn\/v2\/linkcards\?|^https:\/\/www\.zhihu\.com\/api\/v4\/search\/related_queries\/(?:article|answer)\/\d+|^https:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/mobile_banner|^https:\/\/zhstatic\.zhihu\.com\/brand-ad|^https:\/\/zhuanlan\.zhihu\.com\/api\/articles\/\d+\/recommendation))https?:\/\/api\.zhihu\.com\/commercial_api\/answer/\d+/bottom-v2,REJECT
+# 来源：AllInOne.sgmodule
+URL-REGEX,^(?!(?:^https:\/\/(?:api|page-info)\.zhihu\.com\/(?:answers|articles)\/v2\/\d+|^https:\/\/api\.zhihu\.com\/(?:bazaar\/float_window|market\/popovers_v2)|^https:\/\/api\.zhihu\.com\/(?:moments\/lastread|drama\/hot-drama-list)|^https:\/\/api\.zhihu\.com\/(?:moments_v3|topstory\/hot-lists\/total|topstory\/recommend)|^https:\/\/api\.zhihu\.com\/ab\/api\/v1\/products\/zhihu\/platforms\/ios\/config|^https:\/\/api\.zhihu\.com\/ad-style-service\/request|^https:\/\/api\.zhihu\.com\/bazaar\/vip_tab\/header\?|^https:\/\/api\.zhihu\.com\/comment_v5\/(?:articles|answers)\/\d+\/list-headers|^https:\/\/api\.zhihu\.com\/commercial_api\/(?:answer\/\d+\/bottom-v2|article\/\d+\/bottom-v2|banners_v3\/app_topstory_banner|launch_v2|real_time_launch_v2)|^https:\/\/api\.zhihu\.com\/commercial_api\/app_float_layer|^https:\/\/api\.zhihu\.com\/content-distribution-core\/bubble\/common\/settings|^https:\/\/api\.zhihu\.com\/distribute\/rhea\/qa_ad_card\/h5\/recommendation\?|^https:\/\/api\.zhihu\.com\/feed\/render\/tab\/config\?|^https:\/\/api\.zhihu\.com\/me\/guides|^https:\/\/api\.zhihu\.com\/next-(?:bff|data|render)|^https:\/\/api\.zhihu\.com\/prague\/related_suggestion_native\/feed\?|^https:\/\/api\.zhihu\.com\/questions\/\d+(?:\/answers|\/feeds|\?include=)|^https:\/\/api\.zhihu\.com\/root\/tab|^https:\/\/api\.zhihu\.com\/root\/window|^https:\/\/api\.zhihu\.com\/search\/(hot_search|preset_words)|^https:\/\/api\.zhihu\.com\/search\/recommend_query\/v2\?|^https:\/\/api\.zhihu\.com\/unlimited\/go\/my_card|^https:\/\/api\.zhihu\.com\/v2\/topstory\/hot-lists\/everyone-seeing\?|^https:\/\/api\.zhihu\.com\/v5\.1\/topics\/answer\/\d+\/relation|^https:\/\/appcloud2\.zhihu\.com\/v3\/config|^https:\/\/appcloud2\.zhihu\.com\/v3\/resource\?group_name=mp|^https:\/\/link\.zhihu\.com\/\?target=(?:https?)?(?:%3A|:)?(?:\/\/|%2F%2F)?(.*)|^https:\/\/m-cloud\.zhihu\.com\/api\/cloud\/config\/all\?|^https:\/\/www\.zhihu\.com\/api\/v4/(?:answers|questions)\/\d+/related-readings|^https:\/\/www\.zhihu\.com\/api\/v4\/(?:articles|answers)\/\d+\/recommendations?\?|^https:\/\/www\.zhihu\.com\/api\/v4\/hot_recommendation|^https:\/\/www\.zhihu\.com\/api\/v4\/mcn\/v2\/linkcards\?|^https:\/\/www\.zhihu\.com\/api\/v4\/search\/related_queries\/(?:article|answer)\/\d+|^https:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/mobile_banner|^https:\/\/zhstatic\.zhihu\.com\/brand-ad|^https:\/\/zhuanlan\.zhihu\.com\/api\/articles\/\d+\/recommendation))https?:\/\/api\.zhihu\.com\/feed\/render\/revisit\/current_reading,REJECT-DICT
+# 来源：AllInOne.sgmodule
+URL-REGEX,^(?!(?:^https:\/\/(?:api|page-info)\.zhihu\.com\/(?:answers|articles)\/v2\/\d+|^https:\/\/api\.zhihu\.com\/(?:bazaar\/float_window|market\/popovers_v2)|^https:\/\/api\.zhihu\.com\/(?:moments\/lastread|drama\/hot-drama-list)|^https:\/\/api\.zhihu\.com\/(?:moments_v3|topstory\/hot-lists\/total|topstory\/recommend)|^https:\/\/api\.zhihu\.com\/ab\/api\/v1\/products\/zhihu\/platforms\/ios\/config|^https:\/\/api\.zhihu\.com\/ad-style-service\/request|^https:\/\/api\.zhihu\.com\/bazaar\/vip_tab\/header\?|^https:\/\/api\.zhihu\.com\/comment_v5\/(?:articles|answers)\/\d+\/list-headers|^https:\/\/api\.zhihu\.com\/commercial_api\/(?:answer\/\d+\/bottom-v2|article\/\d+\/bottom-v2|banners_v3\/app_topstory_banner|launch_v2|real_time_launch_v2)|^https:\/\/api\.zhihu\.com\/commercial_api\/app_float_layer|^https:\/\/api\.zhihu\.com\/content-distribution-core\/bubble\/common\/settings|^https:\/\/api\.zhihu\.com\/distribute\/rhea\/qa_ad_card\/h5\/recommendation\?|^https:\/\/api\.zhihu\.com\/feed\/render\/tab\/config\?|^https:\/\/api\.zhihu\.com\/me\/guides|^https:\/\/api\.zhihu\.com\/next-(?:bff|data|render)|^https:\/\/api\.zhihu\.com\/prague\/related_suggestion_native\/feed\?|^https:\/\/api\.zhihu\.com\/questions\/\d+(?:\/answers|\/feeds|\?include=)|^https:\/\/api\.zhihu\.com\/root\/tab|^https:\/\/api\.zhihu\.com\/root\/window|^https:\/\/api\.zhihu\.com\/search\/(hot_search|preset_words)|^https:\/\/api\.zhihu\.com\/search\/recommend_query\/v2\?|^https:\/\/api\.zhihu\.com\/unlimited\/go\/my_card|^https:\/\/api\.zhihu\.com\/v2\/topstory\/hot-lists\/everyone-seeing\?|^https:\/\/api\.zhihu\.com\/v5\.1\/topics\/answer\/\d+\/relation|^https:\/\/appcloud2\.zhihu\.com\/v3\/config|^https:\/\/appcloud2\.zhihu\.com\/v3\/resource\?group_name=mp|^https:\/\/link\.zhihu\.com\/\?target=(?:https?)?(?:%3A|:)?(?:\/\/|%2F%2F)?(.*)|^https:\/\/m-cloud\.zhihu\.com\/api\/cloud\/config\/all\?|^https:\/\/www\.zhihu\.com\/api\/v4/(?:answers|questions)\/\d+/related-readings|^https:\/\/www\.zhihu\.com\/api\/v4\/(?:articles|answers)\/\d+\/recommendations?\?|^https:\/\/www\.zhihu\.com\/api\/v4\/hot_recommendation|^https:\/\/www\.zhihu\.com\/api\/v4\/mcn\/v2\/linkcards\?|^https:\/\/www\.zhihu\.com\/api\/v4\/search\/related_queries\/(?:article|answer)\/\d+|^https:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/mobile_banner|^https:\/\/zhstatic\.zhihu\.com\/brand-ad|^https:\/\/zhuanlan\.zhihu\.com\/api\/articles\/\d+\/recommendation))https?:\/\/api\.zhihu\.com\/fringe\/ad,REJECT-DICT
+# 来源：AllInOne.sgmodule
+URL-REGEX,^(?!(?:^https:\/\/(?:api|page-info)\.zhihu\.com\/(?:answers|articles)\/v2\/\d+|^https:\/\/api\.zhihu\.com\/(?:bazaar\/float_window|market\/popovers_v2)|^https:\/\/api\.zhihu\.com\/(?:moments\/lastread|drama\/hot-drama-list)|^https:\/\/api\.zhihu\.com\/(?:moments_v3|topstory\/hot-lists\/total|topstory\/recommend)|^https:\/\/api\.zhihu\.com\/ab\/api\/v1\/products\/zhihu\/platforms\/ios\/config|^https:\/\/api\.zhihu\.com\/ad-style-service\/request|^https:\/\/api\.zhihu\.com\/bazaar\/vip_tab\/header\?|^https:\/\/api\.zhihu\.com\/comment_v5\/(?:articles|answers)\/\d+\/list-headers|^https:\/\/api\.zhihu\.com\/commercial_api\/(?:answer\/\d+\/bottom-v2|article\/\d+\/bottom-v2|banners_v3\/app_topstory_banner|launch_v2|real_time_launch_v2)|^https:\/\/api\.zhihu\.com\/commercial_api\/app_float_layer|^https:\/\/api\.zhihu\.com\/content-distribution-core\/bubble\/common\/settings|^https:\/\/api\.zhihu\.com\/distribute\/rhea\/qa_ad_card\/h5\/recommendation\?|^https:\/\/api\.zhihu\.com\/feed\/render\/tab\/config\?|^https:\/\/api\.zhihu\.com\/me\/guides|^https:\/\/api\.zhihu\.com\/next-(?:bff|data|render)|^https:\/\/api\.zhihu\.com\/prague\/related_suggestion_native\/feed\?|^https:\/\/api\.zhihu\.com\/questions\/\d+(?:\/answers|\/feeds|\?include=)|^https:\/\/api\.zhihu\.com\/root\/tab|^https:\/\/api\.zhihu\.com\/root\/window|^https:\/\/api\.zhihu\.com\/search\/(hot_search|preset_words)|^https:\/\/api\.zhihu\.com\/search\/recommend_query\/v2\?|^https:\/\/api\.zhihu\.com\/unlimited\/go\/my_card|^https:\/\/api\.zhihu\.com\/v2\/topstory\/hot-lists\/everyone-seeing\?|^https:\/\/api\.zhihu\.com\/v5\.1\/topics\/answer\/\d+\/relation|^https:\/\/appcloud2\.zhihu\.com\/v3\/config|^https:\/\/appcloud2\.zhihu\.com\/v3\/resource\?group_name=mp|^https:\/\/link\.zhihu\.com\/\?target=(?:https?)?(?:%3A|:)?(?:\/\/|%2F%2F)?(.*)|^https:\/\/m-cloud\.zhihu\.com\/api\/cloud\/config\/all\?|^https:\/\/www\.zhihu\.com\/api\/v4/(?:answers|questions)\/\d+/related-readings|^https:\/\/www\.zhihu\.com\/api\/v4\/(?:articles|answers)\/\d+\/recommendations?\?|^https:\/\/www\.zhihu\.com\/api\/v4\/hot_recommendation|^https:\/\/www\.zhihu\.com\/api\/v4\/mcn\/v2\/linkcards\?|^https:\/\/www\.zhihu\.com\/api\/v4\/search\/related_queries\/(?:article|answer)\/\d+|^https:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/mobile_banner|^https:\/\/zhstatic\.zhihu\.com\/brand-ad|^https:\/\/zhuanlan\.zhihu\.com\/api\/articles\/\d+\/recommendation))https?:\/\/api\.zhihu\.com\/message-push\/event,REJECT
+# 来源：AllInOne.sgmodule
+URL-REGEX,^(?!(?:^https:\/\/(?:api|page-info)\.zhihu\.com\/(?:answers|articles)\/v2\/\d+|^https:\/\/api\.zhihu\.com\/(?:bazaar\/float_window|market\/popovers_v2)|^https:\/\/api\.zhihu\.com\/(?:moments\/lastread|drama\/hot-drama-list)|^https:\/\/api\.zhihu\.com\/(?:moments_v3|topstory\/hot-lists\/total|topstory\/recommend)|^https:\/\/api\.zhihu\.com\/ab\/api\/v1\/products\/zhihu\/platforms\/ios\/config|^https:\/\/api\.zhihu\.com\/ad-style-service\/request|^https:\/\/api\.zhihu\.com\/bazaar\/vip_tab\/header\?|^https:\/\/api\.zhihu\.com\/comment_v5\/(?:articles|answers)\/\d+\/list-headers|^https:\/\/api\.zhihu\.com\/commercial_api\/(?:answer\/\d+\/bottom-v2|article\/\d+\/bottom-v2|banners_v3\/app_topstory_banner|launch_v2|real_time_launch_v2)|^https:\/\/api\.zhihu\.com\/commercial_api\/app_float_layer|^https:\/\/api\.zhihu\.com\/content-distribution-core\/bubble\/common\/settings|^https:\/\/api\.zhihu\.com\/distribute\/rhea\/qa_ad_card\/h5\/recommendation\?|^https:\/\/api\.zhihu\.com\/feed\/render\/tab\/config\?|^https:\/\/api\.zhihu\.com\/me\/guides|^https:\/\/api\.zhihu\.com\/next-(?:bff|data|render)|^https:\/\/api\.zhihu\.com\/prague\/related_suggestion_native\/feed\?|^https:\/\/api\.zhihu\.com\/questions\/\d+(?:\/answers|\/feeds|\?include=)|^https:\/\/api\.zhihu\.com\/root\/tab|^https:\/\/api\.zhihu\.com\/root\/window|^https:\/\/api\.zhihu\.com\/search\/(hot_search|preset_words)|^https:\/\/api\.zhihu\.com\/search\/recommend_query\/v2\?|^https:\/\/api\.zhihu\.com\/unlimited\/go\/my_card|^https:\/\/api\.zhihu\.com\/v2\/topstory\/hot-lists\/everyone-seeing\?|^https:\/\/api\.zhihu\.com\/v5\.1\/topics\/answer\/\d+\/relation|^https:\/\/appcloud2\.zhihu\.com\/v3\/config|^https:\/\/appcloud2\.zhihu\.com\/v3\/resource\?group_name=mp|^https:\/\/link\.zhihu\.com\/\?target=(?:https?)?(?:%3A|:)?(?:\/\/|%2F%2F)?(.*)|^https:\/\/m-cloud\.zhihu\.com\/api\/cloud\/config\/all\?|^https:\/\/www\.zhihu\.com\/api\/v4/(?:answers|questions)\/\d+/related-readings|^https:\/\/www\.zhihu\.com\/api\/v4\/(?:articles|answers)\/\d+\/recommendations?\?|^https:\/\/www\.zhihu\.com\/api\/v4\/hot_recommendation|^https:\/\/www\.zhihu\.com\/api\/v4\/mcn\/v2\/linkcards\?|^https:\/\/www\.zhihu\.com\/api\/v4\/search\/related_queries\/(?:article|answer)\/\d+|^https:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/mobile_banner|^https:\/\/zhstatic\.zhihu\.com\/brand-ad|^https:\/\/zhuanlan\.zhihu\.com\/api\/articles\/\d+\/recommendation))https?:\/\/api\.zhihu\.com\/moments\/recent,REJECT-DICT
+# 来源：AllInOne.sgmodule
+URL-REGEX,^(?!(?:^https:\/\/(?:api|page-info)\.zhihu\.com\/(?:answers|articles)\/v2\/\d+|^https:\/\/api\.zhihu\.com\/(?:bazaar\/float_window|market\/popovers_v2)|^https:\/\/api\.zhihu\.com\/(?:moments\/lastread|drama\/hot-drama-list)|^https:\/\/api\.zhihu\.com\/(?:moments_v3|topstory\/hot-lists\/total|topstory\/recommend)|^https:\/\/api\.zhihu\.com\/ab\/api\/v1\/products\/zhihu\/platforms\/ios\/config|^https:\/\/api\.zhihu\.com\/ad-style-service\/request|^https:\/\/api\.zhihu\.com\/bazaar\/vip_tab\/header\?|^https:\/\/api\.zhihu\.com\/comment_v5\/(?:articles|answers)\/\d+\/list-headers|^https:\/\/api\.zhihu\.com\/commercial_api\/(?:answer\/\d+\/bottom-v2|article\/\d+\/bottom-v2|banners_v3\/app_topstory_banner|launch_v2|real_time_launch_v2)|^https:\/\/api\.zhihu\.com\/commercial_api\/app_float_layer|^https:\/\/api\.zhihu\.com\/content-distribution-core\/bubble\/common\/settings|^https:\/\/api\.zhihu\.com\/distribute\/rhea\/qa_ad_card\/h5\/recommendation\?|^https:\/\/api\.zhihu\.com\/feed\/render\/tab\/config\?|^https:\/\/api\.zhihu\.com\/me\/guides|^https:\/\/api\.zhihu\.com\/next-(?:bff|data|render)|^https:\/\/api\.zhihu\.com\/prague\/related_suggestion_native\/feed\?|^https:\/\/api\.zhihu\.com\/questions\/\d+(?:\/answers|\/feeds|\?include=)|^https:\/\/api\.zhihu\.com\/root\/tab|^https:\/\/api\.zhihu\.com\/root\/window|^https:\/\/api\.zhihu\.com\/search\/(hot_search|preset_words)|^https:\/\/api\.zhihu\.com\/search\/recommend_query\/v2\?|^https:\/\/api\.zhihu\.com\/unlimited\/go\/my_card|^https:\/\/api\.zhihu\.com\/v2\/topstory\/hot-lists\/everyone-seeing\?|^https:\/\/api\.zhihu\.com\/v5\.1\/topics\/answer\/\d+\/relation|^https:\/\/appcloud2\.zhihu\.com\/v3\/config|^https:\/\/appcloud2\.zhihu\.com\/v3\/resource\?group_name=mp|^https:\/\/link\.zhihu\.com\/\?target=(?:https?)?(?:%3A|:)?(?:\/\/|%2F%2F)?(.*)|^https:\/\/m-cloud\.zhihu\.com\/api\/cloud\/config\/all\?|^https:\/\/www\.zhihu\.com\/api\/v4/(?:answers|questions)\/\d+/related-readings|^https:\/\/www\.zhihu\.com\/api\/v4\/(?:articles|answers)\/\d+\/recommendations?\?|^https:\/\/www\.zhihu\.com\/api\/v4\/hot_recommendation|^https:\/\/www\.zhihu\.com\/api\/v4\/mcn\/v2\/linkcards\?|^https:\/\/www\.zhihu\.com\/api\/v4\/search\/related_queries\/(?:article|answer)\/\d+|^https:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/mobile_banner|^https:\/\/zhstatic\.zhihu\.com\/brand-ad|^https:\/\/zhuanlan\.zhihu\.com\/api\/articles\/\d+\/recommendation))https?:\/\/api\.zhihu\.com\/root\/window,REJECT-DICT
+# 来源：AllInOne.sgmodule
+URL-REGEX,^(?!(?:^https:\/\/(?:api|page-info)\.zhihu\.com\/(?:answers|articles)\/v2\/\d+|^https:\/\/api\.zhihu\.com\/(?:bazaar\/float_window|market\/popovers_v2)|^https:\/\/api\.zhihu\.com\/(?:moments\/lastread|drama\/hot-drama-list)|^https:\/\/api\.zhihu\.com\/(?:moments_v3|topstory\/hot-lists\/total|topstory\/recommend)|^https:\/\/api\.zhihu\.com\/ab\/api\/v1\/products\/zhihu\/platforms\/ios\/config|^https:\/\/api\.zhihu\.com\/ad-style-service\/request|^https:\/\/api\.zhihu\.com\/bazaar\/vip_tab\/header\?|^https:\/\/api\.zhihu\.com\/comment_v5\/(?:articles|answers)\/\d+\/list-headers|^https:\/\/api\.zhihu\.com\/commercial_api\/(?:answer\/\d+\/bottom-v2|article\/\d+\/bottom-v2|banners_v3\/app_topstory_banner|launch_v2|real_time_launch_v2)|^https:\/\/api\.zhihu\.com\/commercial_api\/app_float_layer|^https:\/\/api\.zhihu\.com\/content-distribution-core\/bubble\/common\/settings|^https:\/\/api\.zhihu\.com\/distribute\/rhea\/qa_ad_card\/h5\/recommendation\?|^https:\/\/api\.zhihu\.com\/feed\/render\/tab\/config\?|^https:\/\/api\.zhihu\.com\/me\/guides|^https:\/\/api\.zhihu\.com\/next-(?:bff|data|render)|^https:\/\/api\.zhihu\.com\/prague\/related_suggestion_native\/feed\?|^https:\/\/api\.zhihu\.com\/questions\/\d+(?:\/answers|\/feeds|\?include=)|^https:\/\/api\.zhihu\.com\/root\/tab|^https:\/\/api\.zhihu\.com\/root\/window|^https:\/\/api\.zhihu\.com\/search\/(hot_search|preset_words)|^https:\/\/api\.zhihu\.com\/search\/recommend_query\/v2\?|^https:\/\/api\.zhihu\.com\/unlimited\/go\/my_card|^https:\/\/api\.zhihu\.com\/v2\/topstory\/hot-lists\/everyone-seeing\?|^https:\/\/api\.zhihu\.com\/v5\.1\/topics\/answer\/\d+\/relation|^https:\/\/appcloud2\.zhihu\.com\/v3\/config|^https:\/\/appcloud2\.zhihu\.com\/v3\/resource\?group_name=mp|^https:\/\/link\.zhihu\.com\/\?target=(?:https?)?(?:%3A|:)?(?:\/\/|%2F%2F)?(.*)|^https:\/\/m-cloud\.zhihu\.com\/api\/cloud\/config\/all\?|^https:\/\/www\.zhihu\.com\/api\/v4/(?:answers|questions)\/\d+/related-readings|^https:\/\/www\.zhihu\.com\/api\/v4\/(?:articles|answers)\/\d+\/recommendations?\?|^https:\/\/www\.zhihu\.com\/api\/v4\/hot_recommendation|^https:\/\/www\.zhihu\.com\/api\/v4\/mcn\/v2\/linkcards\?|^https:\/\/www\.zhihu\.com\/api\/v4\/search\/related_queries\/(?:article|answer)\/\d+|^https:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/mobile_banner|^https:\/\/zhstatic\.zhihu\.com\/brand-ad|^https:\/\/zhuanlan\.zhihu\.com\/api\/articles\/\d+\/recommendation))https?:\/\/api\.zhihu\.com\/settings\/new\/notification,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,yyapp-httpdns.gslb.yy.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,union-httpdns.gslb.yy.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,httpdns-v6.gslb.yy.com,REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^(?!(?:^https?:\/\/.+?\.58cdn\.com\.cn\/brandads\/|^https?:\/\/103\.37\.155\.60\/fetch|^https?:\/\/103\.91\.210\.141\:2515\/xgapp\.php\/v2\/top_notice|^https?:\/\/app\.58\.com\/api\/home\/(advertising|appadv)\/|^https?:\/\/app\.58\.com\/api\/home\/invite\/popupAdv|^https?:\/\/app\.58\.com\/api\/log\/|^https?:\/\/beehiveapi\.58\.com\/adplace\/zcm))http:\/\/103\.44\.58\.64\/md\?",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^(?!(?:^https?://live-ads\.huya\.com/live/getAllEntrance.*$|^https?:\/\/.+?\.58cdn\.com\.cn\/brandads\/|^https?:\/\/cdn\.133\.cn\/md\/gtgj\/.+\/.+720x1280|^https?:\/\/cdn\.\w{3}\.chelaileapp\.cn\/(api\/)?adpub|^https?:\/\/cdn\.cmgadx\.com\/sdk\/pool\/\w+\.json|^https?:\/\/cdn\.cmgadx\.com\/sdk\/pool\/m8uTS50pt3DC0Xd6\.json|^https?:\/\/cdn\.dianshihome\.com\/static\/ad\/|^https?:\/\/cdn\.jlbank\.com\.cn\/jlstaticresource\/APPSTART|^https?:\/\/cdn\.kuaidi100\.com\/images\/open\/appads|^https?:\/\/cdn\.poizon\.com\/node-common\/.*.jpg|^https?:\/\/cdn\.sdb\.com\.cn\/widget\/magic-module-sprite\/dialog-normal|^https?:\/\/cdn\.sdb\.com\.cn\/widget\/magic-module-sprite\/general-banner|^https?:\/\/cdn\.sdb\.com\.cn\/widget\/pb\/pb-plugins-recomend-content|^https?:\/\/cdn\.wup\.huya\.com\/launch\/queryHttpDns$|^https?:\/\/fc-video\.cdn\.bcebos\.com|^https?:\/\/img01\.10101111cdn\.com\/adpos\/share\/|^https?:\/\/lf\-cdn\-tos\.bytescm\.com\/obj\/static\/ad|^https?:\/\/mobads-pre-config\.cdn\.bcebos\.com\/preload\.php|^https?:\/\/ndstatic\.cdn\.bcebos\.com\/activity\/welfare\/index\.html|^https?:\/\/ndstatic\.cdn\.bcebos\.com\/activity\/welfare\/js\/.+\.js|^https?:\/\/staticsns\.cdn\.bcebos\.com\/amis\/.+/banner.png))http:\/\/cdn\.wup\.huya\.com\/launch\/queryHttpDns",REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,dns2.q2cdn.com,REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^(?!(?:^https:\/\/(live|livewsa)\.ximalaya\.com\/lamia\/v1\/subscribe\/status$|^https:\/\/(mobile|mobilehera|mobwsa)\.ximalaya\.com\/app-skin-service\/skin\/setting\/info\/|^https:\/\/(mobile|mobilehera|mobwsa)\.ximalaya\.com\/business-sale-promotion-guide-mobile-web\/popup\/|^https:\/\/(mobile|mobilehera|mobwsa)\.ximalaya\.com\/discovery-category\/customCategories\/|^https:\/\/(mobile|mobilehera|mobwsa)\.ximalaya\.com\/discovery-feed\/v\d\/mix\/|^https:\/\/(mobile|mobilehera|mobwsa)\.ximalaya\.com\/discovery-feed\/v\d\/scene\/listen\/refresh\?|^https:\/\/(mobile|mobilehera|mobwsa)\.ximalaya\.com\/firework-portal\/v\d+\/sync\?|^https:\/\/(mobile|mobilehera|mobwsa)\.ximalaya\.com\/football-portal\/diff2\/batch\?|^https:\/\/(mobile|mobilehera|mobwsa)\.ximalaya\.com\/mobile-playpage\/playpage\/recommendContentV\d\/|^https:\/\/(mobile|mobilehera|mobwsa)\.ximalaya\.com\/mobile-playpage\/playpage\/recommend\/resource\/allocation\/|^https:\/\/(mobile|mobilehera|mobwsa)\.ximalaya\.com\/mobile-user\/v\d\/homePage\/|^https:\/\/(mobile|mobilehera|mobwsa)\.ximalaya\.com\/mobile-user\/v\d\/purchased\/recommend\/|^https:\/\/(mobile|mobilehera|mobwsa)\.ximalaya\.com\/nexus-web\/v\d\/tabs\/customTabs\?|^https:\/\/(mobile|mobilehera|mobwsa)\.ximalaya\.com\/social-web\/follow-stream\/category\/\d+$|^https:\/\/(mobile|mobilehera|mobwsa)\.ximalaya\.com\/subscribe\/v\d\/subscribe\/recommend\?|^https:\/\/(mobile|mobilehera|mobwsa)\.ximalaya\.com\/subscribe\/v\d\/subscribe\/tagAlbumList$|^https:\/\/(mobile|mobilehera|mobwsa)\.ximalaya\.com\/track-feed\/v\d\/chase\/recommend\/|^https:\/\/(m|mwsa)\.ximalaya\.com\/community\/square\/v\d\/stream\?|^https:\/\/(m|mwsa)\.ximalaya\.com\/x-web-activity\/signIn\/getHomePageSignInInfo\/|^https:\/\/(search|searchwsa)\.ximalaya\.com\/hub\/(guideWord|hotWord)V\d\/|^https:\/\/mobwsa\.ximalaya\.com\/mobile-playpage\/playpage\/tabs\/v2\/))http:\/\/xmc\.ximalaya\.com\/xmlymain-login-web\/login\/",REJECT
+# 来源：blockHTTPDNS.module
+IP-CIDR,8.134.241.67/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+DOMAIN,httpdns.volcengineapi.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,dig.zjurl.cn,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,dns.weixin.qq.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,dns.weixin.qq.com.cn,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,aedns.weixin.qq.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,paydns.wechatpay.cn,REJECT
+# 来源：blockHTTPDNS.module
+IP-CIDR,39.156.140.30/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,39.156.140.47/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,39.156.140.245/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,42.81.232.18/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,42.187.182.106/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,42.187.182.123/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,42.187.184.154/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,43.130.30.237/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,43.130.30.240/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,43.137.153.151/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,43.137.159.31/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,43.152.112.101/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,43.153.248.120/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,60.28.172.100/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,61.151.231.157/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,101.32.104.104/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,106.39.206.21/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,106.39.206.25/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,106.39.206.70/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,111.31.201.194/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,111.31.241.76/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,111.31.241.140/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,111.206.147.156/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,111.206.147.210/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,111.206.148.27/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,116.128.177.249/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,116.130.224.150/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,116.130.224.205/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,117.185.247.73/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,123.151.48.171/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,123.151.48.193/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,123.151.48.208/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,123.151.54.50/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,180.153.202.85/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,183.192.196.31/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,203.205.129.102/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,203.205.234.132/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,220.196.159.73/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR6,240e:928:1400:10::25/128,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR6,2402:4e00:8030:1::17/128,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR6,2402:4e00:1900:1700:0:9554:1ad9:c3a/128,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR6,2408:8711:10:10::20/128,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR6,2409:8702:4860:10::4d/128,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+DOMAIN,httpdns.kg.qq.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,httpdns.bilivideo.com,REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^(?!(?:^http:\/\/101\.42\.130\.147\/httpdns\/resolve\/|^https?:\/\/101\.91\.69\.26:8080\/.+|^https?:\/\/47\.100\.65\.202\/api\/mobile\/index\.php\?version=\d&mobile=yes&module=basicdata&type=forumlist|^https?:\/\/47\.100\.65\.202\/source\/plugin\/mobile\/mobile\.php\?module=advis|^https?:\/\/47\.100\.65\.202\/source\/plugin\/mobile\/mobile\.php\?module=threadpost&.+?&page=1|^https?:\/\/47\.110\.187\.87\/winterfell\/v2\/getIpByDomain))http:\/\/47\.101\.175\.206\/resolve",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^(?!(?:^https?:\/\/47\.100\.65\.202\/api\/mobile\/index\.php\?version=\d&mobile=yes&module=basicdata&type=forumlist|^https?:\/\/47\.100\.65\.202\/source\/plugin\/mobile\/mobile\.php\?module=advis|^https?:\/\/47\.100\.65\.202\/source\/plugin\/mobile\/mobile\.php\?module=threadpost&.+?&page=1|^https?:\/\/47\.110\.187\.87\/winterfell\/v2\/getIpByDomain))http:\/\/47\.100\.123\.169\/resolve",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^http:\/\/120\.46\.169\.234\/resolve",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^http:\/\/121\.36\.72\.124\/resolve",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^(?!(?:^http:\/\/59\.82\.113\.10\/amdc\/mobileDispatch\?appkey=213807&|^https?:\/\/adm\.10jqka\.com\.cn\/interface\/ad\/recommend|^https?:\/\/stat\.10jqka\.com\.cn\/q\?ld=mobile&id=ad))http:\/\/116\.63\.10\.135\/resolve",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^http:\/\/117\.185\.228\.108\/resolve",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^(?!(?:^https?:\/\/119\.29\.29\.\d+\/d))http:\/\/117\.144\.238\.29\/resolve",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^(?!(?:^https?:\/\/gab\.122\.gov\.cn\/eapp\/m\/sysquery\/adver$))http:\/\/122\.9\.7\.134\/resolve",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^(?!(?:^http:\/\/101\.42\.130\.147\/httpdns\/resolve\/|^https?:\/\/101\.91\.69\.26:8080\/.+|^https?:\/\/103\.91\.210\.141\:2515\/xgapp\.php\/v2\/top_notice))http:\/\/101\.91\.140\.124\/resolve",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^(?!(?:^http:\/\/101\.42\.130\.147\/httpdns\/resolve\/|^https?:\/\/101\.91\.69\.26:8080\/.+|^https?:\/\/103\.91\.210\.141\:2515\/xgapp\.php\/v2\/top_notice))http:\/\/101\.91\.140\.224\/resolve",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^(?!(?:^https?:\/\/gab\.122\.gov\.cn\/eapp\/m\/sysquery\/adver$))http:\/\/122\.9\.13\.79\/resolve",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^(?!(?:^http?:\/\/(114\.115\.217\.129)|(home\.umetrip\.com)\/gateway\/api\/umetrip\/native$|^https?:\/\/gab\.122\.gov\.cn\/eapp\/m\/sysquery\/adver$))http:\/\/122\.9\.15\.129\/resolve",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^(?!(?:^https?:\/\/47\.100\.65\.202\/api\/mobile\/index\.php\?version=\d&mobile=yes&module=basicdata&type=forumlist|^https?:\/\/47\.100\.65\.202\/source\/plugin\/mobile\/mobile\.php\?module=advis|^https?:\/\/47\.100\.65\.202\/source\/plugin\/mobile\/mobile\.php\?module=threadpost&.+?&page=1))http:\/\/112\.65\.200\.117\/resolve",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^(?!(?:^https?:\/\/119\.29\.29\.\d+\/d))http:\/\/112\.64\.218\.119\/resolve",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^(?!(?:^http?:\/\/(114\.115\.217\.129)|(home\.umetrip\.com)\/gateway\/api\/umetrip\/native$|^https?:\/\/47\.110\.187\.87\/winterfell\/v2\/getIpByDomain))http:\/\/114\.116\.215\.110\/resolve",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^(?!(?:^http:\/\/59\.82\.113\.10\/amdc\/mobileDispatch\?appkey=213807&|^https?:\/\/adm\.10jqka\.com\.cn\/interface\/ad\/recommend|^https?:\/\/stat\.10jqka\.com\.cn\/q\?ld=mobile&id=ad))http:\/\/116\.63\.10\.31\/resolve",REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,httpdns.browser.miui.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,httpdns-api.aliyuncs.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,httpdns-sc.aliyuncs.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,httpdns.danuoyi.tbcache.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,httpdns.cctv.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,httpdns-browser.platform.dbankcloud.cn,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,httpdns.huaweicloud.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,httpdns.c.cdnhwc2.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,httpdns.platform.dbankcloud.cn,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,httpdns.platform.dbankcloud.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,httpdns1.cc.cdnhwc5.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,doh.ptqy.gitv.tv,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,httpdns.baidu.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,httpsdns.baidu.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,httpdns.bcelive.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,dns.iqiyi.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,doh.iqiyi.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,dns.qiyipic.iqiyi.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,httpdns.n.shifen.com,REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^http:\/\/180\.76\.76\.112\/v\d\/",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^http:\/\/180\.76\.76\.112\/v\d\/resolve",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^(?!(?:^http:\/\/106\.55\.220\.18:8053\/httpdns\/))http:\/\/180\.76\.76\.220\/v\d\/resolve",REJECT
+# 来源：blockHTTPDNS.module
+IP-CIDR,186.76.76.200/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+DOMAIN,httpdns.ocloud.heytapmobi.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,httpdns.push.heytapmobi.com,REJECT
+# 来源：blockHTTPDNS.module
+IP-CIDR,103.224.222.208/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,119.29.29.98/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,119.29.29.99/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^(?!(?:^https?:\/\/182\.92\.244\.70\/d\/json))http:\/\/182\.254\.116\.116\/d",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^(?!(?:^https?:\/\/119\.29\.29\.\d+\/d))http:\/\/119\.29\.29\.98\/d\?",REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,dotserver.douyucdn.cn,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,hdns.ksyun.com,REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^http:\/\/162\.14\.3\.250\/v4",REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,httpdns.push.oppomobile.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,httpdns.ocloud.oppomobile.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,kuaishou.httpdns.pro,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,httpdns.kwd.inkuai.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,apidns.kwd.inkuai.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,apidns-js.kwd.inkuai.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,httpdns.meituan.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,httpdnsmultiapi.meituan.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,httpdnsmultiapivip.meituan.com,REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^(?!(?:^https?:\/\/103\.37\.155\.60\/fetch|^https?:\/\/103\.91\.210\.141\:2515\/xgapp\.php\/v2\/top_notice))http:\/\/103\.37\.155\.60\/fetch",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^(?!(?:^http:\/\/101\.42\.130\.147\/httpdns\/resolve\/|^https?:\/\/101\.91\.69\.26:8080\/.+))http:\/\/81\.69\.130\.131\/d",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^(?!(?:^http:\/\/101\.42\.130\.147\/httpdns\/resolve\/|^https?:\/\/101\.91\.69\.26:8080\/.+))http:\/\/101\.35\.204\.35\/d",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^(?!(?:^http:\/\/101\.42\.130\.147\/httpdns\/resolve\/|^https?:\/\/101\.91\.69\.26:8080\/.+))http:\/\/101\.35\.212\.35\/d",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^(?!(?:^http?:\/\/(114\.115\.217\.129)|(home\.umetrip\.com)\/gateway\/api\/umetrip\/native$|^https?:\/\/47\.110\.187\.87\/winterfell\/v2\/getIpByDomain))http:\/\/114\.110\.96\.6\/d",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^(?!(?:^http?:\/\/(114\.115\.217\.129)|(home\.umetrip\.com)\/gateway\/api\/umetrip\/native$|^https?:\/\/101\.91\.69\.26:8080\/.+|^https?:\/\/47\.110\.187\.87\/winterfell\/v2\/getIpByDomain))http:\/\/114\.110\.96\.26\/d",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^(?!(?:^http?:\/\/(114\.115\.217\.129)|(home\.umetrip\.com)\/gateway\/api\/umetrip\/native$|^https?:\/\/47\.110\.187\.87\/winterfell\/v2\/getIpByDomain))http:\/\/114\.110\.97\.30\/d",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^(?!(?:^http?:\/\/(114\.115\.217\.129)|(home\.umetrip\.com)\/gateway\/api\/umetrip\/native$|^https?:\/\/47\.110\.187\.87\/winterfell\/v2\/getIpByDomain))http:\/\/114\.110\.97\.97\/d",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^http:\/\/121\.5\.84\.85\/d",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^http:\/\/\[2402:4e00:1411:201:0:9964:ba21:5a41\]\/d",REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,httpdns.zybang.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,dns.weibo.cn,REJECT
+# 来源：blockHTTPDNS.module
+IP-CIDR,39.97.130.51/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+IP-CIDR,39.97.128.148/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^http:\/\/api\.weibo\.cn\/2\/httpdns\/config",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^http:\/\/api\.weibo\.cn\/httpdns\/config",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^(?!(?:^https?:\/\/103\.37\.155\.60\/fetch|^https?:\/\/103\.91\.210\.141\:2515\/xgapp\.php\/v2\/top_notice))http:\/\/103\.41\.167\.237\/v2\/resolv",REJECT
+# 来源：blockHTTPDNS.module
+IP-CIDR,118.89.204.198/23,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+DOMAIN,hd.xiaojukeji.com,REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^http:\/\/203\.107\.1\.33\/191607\/resolve\?",REJECT
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^(?!(?:^https?:\/\/119\.29\.29\.\d+\/d))http:\/\/119\.29\.29\.29\/d",REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,serveraddr.service.kugou.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,twns.p2ptun.qq.com,REJECT
+# 来源：blockHTTPDNS.module
+DOMAIN,tp2p.kg.qq.com,REJECT
+# 来源：blockHTTPDNS.module
+IP-CIDR,81.71.61.216/32,REJECT,no-resolve
+# 来源：blockHTTPDNS.module
+URL-REGEX,"^(?!(?:^http:\/\/101\.42\.130\.147\/httpdns\/resolve\/|^http:\/\/106\.55\.220\.18:8053\/httpdns\/|^http:\/\/139\.196\.12\.179:8053\/httpdns\/|^http:\/\/54\.222\.159\.138:8053\/httpdns\/|^https?:\/\/101\.91\.69\.26:8080\/.+))http:\/\/101\.42\.130\.147:8053\/httpdns\/",REJECT
+
+[URL Rewrite]
+# 来源：AllInOne.sgmodule
+(^https?:\/\/app\.biliintl\.com\/(x\/)?(intl|dm|reply|history|v\d\/(fav|msgfeed)).+?)(&s_locale=zh-Hans_[A-Z]{2})(.+?)(&sim_code=\d+)(.+) $1&s_locale=zh-Hans_PH$6&sim_code=51503$8 302
+# 来源：AllInOne.sgmodule
+(^https?:\/\/passport\.biliintl\.com\/x\/intl\/passport-login\/.+)(&s_locale=zh-Hans_[A-Z]{2})(.+)(&sim_code=\d+)(.+) $1&s_locale=zh-Hans_PH$35&sim_code=51503$5 302
+# 来源：AllInOne.sgmodule
+^http:\/\/you\.163\.com\/ https://you.163.com/ 302
+# 来源：AllInOne.sgmodule
+^https?:\/\/(ditu|maps).google\.cn https://maps.google.com 302
+# 来源：AllInOne.sgmodule
+^https?:\/\/(www.)?(betterzipcn|betterzip)\.(com|net)\/ https://macitbetter.com/ 302
+# 来源：AllInOne.sgmodule
+^https?:\/\/cn\.ultraiso\.net\/ https://cn.ezbsystems.com/ultraiso/ 302
+# 来源：AllInOne.sgmodule
+^https?:\/\/hypersnap\.mairuan\.com\/ https://www.keyshot.com/ 302
+# 来源：AllInOne.sgmodule
+^https?:\/\/logoshejishi\.mairuan\.com\/ https://www.sothink.com/product/logo-design-software/ 302
+# 来源：AllInOne.sgmodule
+(?i)\b\.ott\.cibntv\.net\/[\w\/-]+?\.mp4\?sid= - reject
+# 来源：AllInOne.sgmodule
+(?i)\bvmind\.qqvideo\.tc\.qq\.com\/[\w\/\.-]+[a-z]\d+\.mp4\? - reject
+# 来源：AllInOne.sgmodule
+^http:\/\/gateway2\.etnet\.com\.hk\/etnetApp\/theme\/seasonal\/v30\/theme.json - reject-200
+# 来源：AllInOne.sgmodule
+^http:\/\/m\.meitun\.com\/newapi\/router\/topic\/hometptf\/feedRecommend - reject-200
+# 来源：AllInOne.sgmodule
+^https://info\.mina\.xiaoaisound\.com/advertise/ - reject
+# 来源：AllInOne.sgmodule
+^https:\/\/3pp\.starbucks\.com\.cn\/wxmem\/index\/banner - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/3pp\.starbucks\.com\.cn\/wxmem\/popup - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/aag\.enmonster\.com\/apa\/(index\/)?advert\/(skin|multi\/positions|demand\/home\/poster) - reject
+# 来源：AllInOne.sgmodule
+^https:\/\/aag\.enmonster\.com\/apa\/advert\/demand\/home\/poster - reject
+# 来源：AllInOne.sgmodule
+^https:\/\/aag\.enmonster\.com\/apa\/advert\/multi\/positions - reject
+# 来源：AllInOne.sgmodule
+^https:\/\/ad\.maoyan\.com\/api\/position\/detail - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/ad\.xiaotucc\.com\/advert - reject
+# 来源：AllInOne.sgmodule
+^https:\/\/ads\.ishansong\.com\/advert - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/adsoss\.zhinengxiyifang\.cn\/ads - reject
+# 来源：AllInOne.sgmodule
+^https:\/\/alittle-tea\.oss-cn-shanghai\.aliyuncs\.com\/images\/platform\/alittle - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/api-fouth-mem\.huazhu\.com\/api\/rights\/bannerList - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/api\.kuaidihelp\.com\/g_order_core\/v2\/mina\/User\/getBannerList - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/api\.maoyan\.com\/sns\/common\/feed\/channel\/v2\/list\.json - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/api\.mcd\.cn\/bff\/portal\/home\/hotActivity - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/api\.sfacg\.com\/ioscfg - reject-200
+# 来源：AllInOne.sgmodule
+^https:\/\/api\.sodalife\.xyz\/v1\/goods - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/api\.sodalife\.xyz\/v1\/posters\?location=SODA_APP%3AHOME%3ABOTTOM - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/api\.songguo7\.com\/(\w{3})?mp\/v2\/misc\/(toast|user_operate_info) - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/api\.ulife\.group\/auth\/account\/entrance - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/api\.ulife\.group\/auth\/account\/getUpgradeStrategy - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/api\.ulife\.group\/market\/frontEntrance\/getThirdAdvertising\?displayPort=1&type=15 - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/api\.ulife\.group\/market\/memberCard\/listMemberCard\?isShowSecondaryCard=1 - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/api\.ulife\.group\/signintask\/adServing - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/apiproxy\.zuche\.com\/resource\/carrctapi\/home\/marketing - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/apis\.alenable\.com\/mall\/v1\/api\/mall\/skin\/user\/get - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/apis\.alenable\.com\/ycx\/v1\/api\/adPut - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/app\.homeinns\.com\/api\/v5\/local - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/app\.homeinns\.com\/api\/v6\/indexs - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/appuser-static\.huolala\.cn\/imgs - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/ccmsupport-sz\.tenpay\.com\/cgi-bin\/common\/ccm_page_element.cgi - reject
+# 来源：AllInOne.sgmodule
+^https:\/\/cdke\.youdao\.com\/course3\/recommend\/dict\/startup - reject-200
+# 来源：AllInOne.sgmodule
+^https:\/\/cn-app\.narwaltech\.com\/(operate\/(cactivity\/listByResourceIds|appPosition\/listSplash)|app-user-device-server\/v\d\/user-device\/getTips) - reject-200
+# 来源：AllInOne.sgmodule
+^https:\/\/conf\.diditaxi\.com\.cn\/homepage\/v1\/core - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/customer-app\.sto\.cn\/api\/app\/banner\/banner - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/dsp\.fcbox\.com - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/dynamicad\.kfc\.com\.cn\/api - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/file\.dian\.so\/c\/leto - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/gameapi\.hellobike\.com\/api - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/gw-passenger-wap\.01zhuanche\.com\/gw-passenger-wap\/zhuanche-passenger-token\/commonSkipToken\/common\/getAdList - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/hdgateway\.zto\.com\/getAdInfo - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/hdgateway\.zto\.com\/getApolloConfig - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/hdgateway\.zto\.com\/listJumperShow - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/hdgateway\.zto\.com\/track - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/htwkop\.xiaojukeji\.com\/gateway\?api=cms\.htw\.delivery - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/htwkop\.xiaojukeji\.com\/gateway\?api=hm\.fa\.combineHomepageInfo - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/htwkop\.xiaojukeji\.com\/gateway\?api=hm\.fa\.mallRecommend - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/hwimg\.beingfine\.cn\/card - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/images\.qmai\.cn\/s214925\/2023 - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/m\.ctrip\.com\/restapi\/soa2\/12673\/queryWeChatHotEvent - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/m\.ctrip\.com\/restapi\/soa2\/13916\/tripAds - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/member\.alipan\.com\/v2\/activity\/sign_in_info - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/member\.lxjchina\.com\.cn\/mini-server\/home\/page\/banner - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/minicap\.caocaokeji\.cn\/advert-bss\/pullAdvert - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/miniprogram\.ishansong\.com\/cms\/faq\/query - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/mobile-api\.imlaidian\.com\/api\/args - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/mxsa\.mxbc\.net\/api\/v1\/adinfo\/adplace\/query - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/mxsa\.mxbc\.net\/api\/v1\/adinfo\/limitedAds$ - reject-200
+# 来源：AllInOne.sgmodule
+^https:\/\/orders\.kfc\.com\.cn\/preorder-portal\/api\/v2\/coupon - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/passenger\.t3go\.cn\/passenger-activity-api\/notoken\/api\/v1\/resource\/getSource - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/passengerapi\.saicmobility\.com\/(ad\/requestAd|pay\/v1\/queryOpenedCouponPackages) - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/qapi\.huolala\.cn\/ads - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/qapi\.huolala\.cn\/get_service_list - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/qapi\.huolala\.cn\/home_new_user - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/res\.hongyibo\.com\.cn\/os\/gs\/resapi\/activity - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/res\.kfc\.com\.cn\/CRM\/kfcad\/custom_v2\/wxapp - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/router-app-api\.jdcloud\.com\/v\d\/board\/routerAppSplash - reject-200
+# 来源：AllInOne.sgmodule
+^https:\/\/s\.jiediankeji\.com\/adv - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/sdkapp\.uve\.weibo\.com\/.+&sub_ad_type=splash - reject
+# 来源：AllInOne.sgmodule
+^https:\/\/smarket\.dian\.so - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/sto-customer-app\.oss-cn-shanghai\.aliyuncs\.com\/images - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/supplier-api\.imdada\.cn\/fe\/public\/ad\/spot\?forwardServiceName=growth-activity - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/suyun-guest\.daojia\.com\/api\/kuaigou\/banjia\/review - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/tm-api\.pin-dao\.cn\/home\/api\/index\/activeConfig\/v2 - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/tm-api\.pin-dao\.cn\/home\/api\/resource\/config\/homeBannerNodes - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/triangle\.wearemanner\.com\/mp-api\/v1\/ads - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/vip7\.fzwdyy\.cn:8083\/api\/(getAdvertInfo|getGOOGAdvert) - reject-200
+# 来源：AllInOne.sgmodule
+^https:\/\/vod-movie\.maoyan\.com\/vod\/video\/onlineMovies\.json - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/webapi\.qmai\.cn\/web\/catering\/advertising\/ad - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/webchatapp\.fcbox\.com\/fcboxactivityweb\/api\/v2\/clientPage - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/wechat-api\.i-xiaoma\.com\.cn\/app\/v1\/bus\/wechat\/content - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/www\.deppon\.com\/gwapi\/memberService\/eco\/member\/grade\/commonInterface - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/wx\.bthhotels\.com\/miniapp\/weixin\/v1\/home\/index_banner - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/wx\.maoyan\.com\/maoyansh\/api\/mobile\/(hotMatchList|eSportsIps) - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/wx\.maoyan\.com\/maoyansh\/myshow\/ajax\/ad\/detail - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/wx\.maoyan\.com\/maoyansh\/myshow\/ajax\/celebrityBasicList\/query - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/wx\.maoyan\.com\/maoyansh\/myshow\/ajax\/movie\/wonderShow - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/wx\.maoyan\.com\/maoyansh\/myshow\/ajax\/performances\/calendar\/0 - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/wxapp\.bestwehotel\.com\/gw3\/app-mini\/trip-hotel-banner\/activity\/getActivityInfo - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/wxproj\.seeyouyima\.com\/data\/today_tips - reject-dict
+# 来源：AllInOne.sgmodule
+^https:\/\/wxs-weixin\.sd\.zhumanggroup\.com\/api\/v2\/ad - reject-dict
+# 来源：AllInOne.sgmodule
+^https?://advertise\.bczeducation\.cn\/rpc\/advertise - reject-200
+# 来源：AllInOne.sgmodule
+^https?://api-mifit-cn2\.zepp\.com/discovery/mi/cards/(startpage_ad|homepage_ad)\? - reject
+# 来源：AllInOne.sgmodule
+^https?://mbasecc\.bas\.cmbchina\.com/Edge/api/mlife\.clientface\.clientservice\.api\.advertiseService/preCacheAdvertiseSec - reject
+# 来源：AllInOne.sgmodule
+^https?://nam\.veta\.naver\.com/gfp/v1\?u\=ios_papago_top - reject
+# 来源：AllInOne.sgmodule
+^https?://newclient\.map\.baidu\.com/client/crossmarketing - reject
+# 来源：AllInOne.sgmodule
+^https?://newclient\.map\.baidu\.com/client/usersystem/home/dynamic - reject
+# 来源：AllInOne.sgmodule
+^https?://optimus-ads\.amap\.com/uploadimg/[a-zA-Z0-9]+\.gif - reject-200
+# 来源：AllInOne.sgmodule
+^https?://pdapis\.pdnews\.cn/api/rmrb-bff-display-zh/display/zh/c/launchPage\? - reject
+# 来源：AllInOne.sgmodule
+^https?://superapp\.kiwa-tech\.com/app/ads/selectList - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/(api|b)\.zhuishushenqi\.com\/advert - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/(commontgw|comapi)\.reader\.qq\.com\/(common\/adV|com-ad\/config) - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/(gw|heic)\.alicdn\.com\/\w{2}s\/.+\.jpg_(9\d{2}|\d{4}) - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/(gw|heic)\.alicdn\.com\/imgextra\/.+\d{4}-\d{4}\.jpg_(9\d{2}|\d{4}) - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/(gw|heic)\.alicdn\.com\/imgextra\/\w{2}\/[\w!]+-\d-tps-\d{3,4}-\d{4}\.jpg_(1\d{3}|9\d{2})x(1\d{3}|9\d{2})q90\.jpg_\.(heic|webp)$ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/[a-zA-Z0-9_-]+\.admobile.top\/ - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/[a-zA-Z0-9_-]+\.ranfenghd\.com\/ad - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/[a-zA-Z0-9_-]+\.tianmu\.mobi\/ad - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/[a-zA-Z0-9_-]+\.weathercn\.com\/(.*bypage|appindexicon) - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/access\.mypikpak\.com\/access_controller\/v1\/area_accessible - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/acs-m\.freshippo\.com\/gw\/mtop\.wdk\.render\.querysinglepage - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.alibaba\.mos\.app\.homepage\.launch - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.damai\.mec\.popup\.get - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.fliggy\.crm\.screen\.allresource - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.wdk\.render\.querysinglepage - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/act\.vip\.iqiyi\.com\/interact\/api\/show\.do - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/act\.vip\.iqiyi\.com\/interact\/api\/v2\/show - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/ad\.cj\.sina\.cn\/(osa\/adpreload|fax\/impress) - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/ad\.lofter\.com\/.*yitou\/madr - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/ad\.mcloud\.139\.com\/advertapi - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/adpai\.thepaper\.cn\/.+?&ad= - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/ads-img-al\.xhscdn\.com\/hera\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/ads\.closeli\.cn\/ - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/adv\.ccb\.com\/ebda\/ctm_adv - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/adx\.zuoyebang\.com\/adxserver\/ - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/aikanvod\.miguvideo\.com\/video\/p\/i_adverseInterface\.jsp - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/amap-aos-info-nogw\.amap\.com\/ws\/aos\/alimama\/splash_screen - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/amap\-aos\-info\-nogw\.amap\.com\/ws\/aos\/alimama\/ - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/ap\.dongqiudi\.com\/plat\/v - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/api-access\.pangolin-sdk-toutiao\.com\/api\/ad\/union\/sdk\/get_ads - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/api-access\.pangolin-sdk-toutiao\.com\/api\/ad\/union\/server_bidding\/pre_fetch\/ - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/api-mifit\.huami\.com\/(discovery\/mi\/discovery\/(homepage|sleep|sport(_(summary|training))?|step_detail|training_video)_ad|v1\/app\/startpages\.json)\? - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/api-sams\.walmartmobile\.cn\/api\/v1\/sams\/sams-user\/(window\/getGoUpPlus|screen_promotion\/get) - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/api1\.34580\.com\/wx\/Home\/AdvertisementPhotoshootRequest - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/api2\.picooc\.com\/v\d\/api\/focus\/strategy\/execute - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.abema\.io\/v\d\/ip\/check - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.ahmobile\.cn:443\/eip\?eip_serv_id=app\.getAllNew - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.applovefrom\.com\/api\/v\d\/splash\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.blibee\.com\/cvsnotify-api\/cvs\/notify\/app\/banner\/v\d+$ - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.catch\.gift\/api\/v\d\/pagead\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.cdmcaac\.com\/ad\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.chelaile\.net\.cn\/adpub\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.cloud\.189\.cn\/guns\/getOpenscreenBanners - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.cloud\.189\.cn\/guns\/img\/recommendedPosition\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.coolapk\.com\/v6\/search\?.*type=hotSearch - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.dnurse\.com\/api\/boot\/get-latest-items - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.douban\.com\/v2\/app_ads\/splash - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.gotokeep\.com\/ads - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.gotokeep\.com\/cauchy\/user\/notice\/growth\/guide - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.internetofcity\.cn\/api\/resource\/anon\/popups\/getSplashList - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.ireader\.mobi\/activity\/ad\/openScreen - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.ishansong\.com\/app\/check\/v\d+\/check - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.kkmh\.com\/v\d+\/(ad|advertisement)\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.kmovie\.gifshow\.com\/rest\/n\/kmovie\/app\/(resource|banner) - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.kurobbs\.com\/config\/getOpenScreen - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=home_launchConfig - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.m\.jd\.com\/openUpgrade - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.m\.mi\.com\/v\d\/app\/start - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.mcd\.cn\/bff\/portal\/(richpop|home\/splash) - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.medlive\.cn\/promotion-api/adlist - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.merach\.com\/app\/AppAdvertisingController\/getAdvert - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.moomoo\.com(\/v\d)?\/ad - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.qd-metro\.com\/ngstatic\/appScreenAds - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.qiuduoduo\.cn\/guideimage - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.rr\.tv\/ad\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.smart\.jd\.com\/c\/service\/getLoadingLinks - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.taou\.com\/sdk\/global\/splash_ad - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.tipsoon\.com\/api\/v\d\/top\/ad - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.tv\.sohu\.com\/agg\/api\/app\/config\/bootstrap - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.vuevideo\.net\/api\/v\d\/ad\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.waitwaitpay\.com\/\/api\/splash - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.wfdata\.club\/v2\/yesfeng\/(infoCenterAd|yesList) - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.xiaoheihe\.cn\/.*get_ads_info - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.xiaoyi\.com\/v5\/app\/config\?userid=.* - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.xiaoyi\.com\/v5\/app\/mobile\/ads - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.xueqiu\.com\/brand\/search\/v1\.json - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.xueqiu\.com\/snowpard\/launch_strategy\/query\.json - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.yizhibo\.com\/common\/api\/(api_)?pz$ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.ys7\.com.*\/getAdvertising - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.zcool\.com\.cn\/.*common\/open-screen - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.zhuishushenqi\.com\/notification\/shelfMessage - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.zhuishushenqi\.com\/splashes\/ios - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\.zhuishushenqi\.com\/user\/bookshelf-updated - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/api\d?\.musical\.ly\/api\/ad\/ - reject-img
+# 来源：AllInOne.sgmodule
+^https?:\/\/apimobile\.meituan\.com\/appupdate\/mach\/checkUpdate? - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/apis\.lifeweek\.com\.cn\/api\/baseConfig\/getIosNewConfig - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/app-api\.medsci\.cn\/app-advertisement-space\/showAdList - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/app-cdn\.2q10\.com\/app\/\w+\/honored - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/app-gateway\.leisuapi\.com\/v\d\/app\/mobile\/(banners|ads) - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/app-gw\.csdn\.net\/silkroad-api\/api\/v\d\/assemble\/list\/pub\/channel\/app_open_screen_ad - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/app2\.autoimg\.cn\/appdfs\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/app\.api\.ke\.com\/config\/config\/bootpage - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/app\.api\.qjjfin\.com\/publicize\/allList - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/app\.badmintoncn\.com\/mag\/operative\/v\d\/ad\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/app\.c\.nf\.migu\.cn\/.*column\/start(-)?up-pic - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/app\.ddpai\.com\/d\/api\/v\d\/config\/get\/bootscreen - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/app\.dewu\.com\/api\/v\d\/app\/advertisement\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/app\.duxiaoman\.com\/walletapp\/misc\/app_startup - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/app\.flymodem\.com\.cn\/Appapi\/Public\/welecome - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/app\.ibuscloud\.com\/v\d\/(app\/getSkipAdvert|notice\/getNoticeWithAdvByCity) - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/app\.jiantou8\.com\/Home\/APP\/allAd - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/app\.mixcapp\.com\/mixc\/api\/v\d\/ad - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/app\.poizon\.com\/api\/v\d\/app\/advertisement\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/app\.yinlun\.cc\/xgapp\.php\/v\d\/advert\?position=[^2]+ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/app\.yinlun\.cc\/xgapp\.php\/v\d\/top_notice\? - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/appapi\.huazhu\.com:\d{4}\/client\/app\/getAppStartPage\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/apprn\.pizzahut\.com\.cn\/updateCheck\? - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/axxd\.xmseeyouyima\.com\/v\d\/getad - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/bbs-api\.miyoushe\.com\/apihub\/api\/getAppSplash - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/bp-api\.bestv\.com\.cn\/cms\/api\/c\/home\/searchMark - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/bp-api\.bestv\.com\.cn\/cms\/api\/free\/open\/advertisingV2 - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/business\.msstatic\.com\/advertiser\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/c\.tieba\.baidu\.com\/c\/f\/forum\/getAdInfo - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/c\.tieba\.baidu\.com\/c\/s\/splashSchedule - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/capi\.lkcoffee\.com\/resource\/m\/sys\/(homePage\/contactor\/modules|app\/adposNew) - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/capi\.mwee\.cn\/app-api\/V\d+\/app\/(ad|getstartad) - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/capis(-?\w*)?\.didapinche\.com\/ad\/boot\? - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/capis(-?\w*)?\.didapinche\.com\/ad\/event? - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/capis(-?\w*)?\.didapinche\.com\/ad\/ride\/detail\? - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/capis-slb\.didapinche\.com\/ad\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/carapp\.gtmc\.com\.cn\/api\/appgtmc\/homePage\/HomePageAction\/queryHomePageImg\.json - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/careapi\.oclean\.com\/mall\/v\d\/Temporary\/SafetyGetStartAdvert - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/ccsp-egmas\.sf-express\.com\/cx-app-base\/base\/app\/ad\/ - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/ccsp-egmas\.sf-express\.com\/cx-app-base\/base\/app\/appVersion\/detectionUpgrade - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/cdn-evone-ceph\.echargenet\.com\/gw-emas-cdn - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/cdn\.api\.fotoable\.com\/Advertise\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/cdn\.moji\.com\/advert\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/cdn\.web\.chelaile\.net\.cn\/info-flow\/index\.html - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/cdns\.chinastock\.com\.cn\/cdn\/omc\/app\/app\/(index_pop_banner|startup_banner) - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/client-api-v2\.oray\.com\/materials\/(SUNLOGIN_CLIENT_IOS_PROMOTION|SLCC_IOS_DEVICE|SLCC_IOS_STARTUP) - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/client-api-v\d\.oray\.com\/materials\/SLCC_IOS_[A-Z]+_ADV - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/client-api\.oray\.com\/materials\/SLCC_IOS_STARTUP\?lang=zh-Hans-CN - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/clientaccess\.10086\.cn\/biz-orange\/DN\/init\/startInit - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/cmt\.comp\.360os\.com\/adv - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.cainiao\.guoguo\.nbnetflow\.ads\.(show|mshow)\.cn\/ - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/comicapi\.manhuashe\.com\/v\d\/(ads\/adstrategys|public\/startupactivity) - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/compus\.xiaofubao\.com\/compus\/advertising - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/content-understand-strategy\.sm\.cn\/open_screen - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/cq11344-app-https-api-1\.ictun\.com:443\/api\/app\/v\d\/appad - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/creditcardapp\.bankcomm\.cn\/mappweb_interface\/common\/(qryPopAds|qryLaunchAds)\.do - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/creditcardapp\.bankcomm\.com\/mapp\/common\/getPopAds\.do$ - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/creditcardapp\.bankcomm\.com\/mapp\/common\/queryGuidePageAds\.do - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/creditcardapp\.bankcomm\.com\/mappweb.*(Advert|Ads).do - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/data-collector\.soulapp\.cn\/api\/data\/report$ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/device-box\.onethingpcs\.com\/.+\/adConf - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/dict-mobile\.iciba\.com\/interface\/index\.php\?[\w=&]*(c=ad|collectFeedsAdShowCount|KSFeedsAdCardViewController) - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/dili\.bdatu\.com\/jiekou\/ad\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/dispatcher\.camera360\.com\/api\/v1\/list$ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/dj\.palmestore\.com\/zybk\/api\/ad - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/djcapp\.game\.qq\.com\/daoju\/igw\/main\/\?_service=welink\.ad\.list - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/dl-cu-hz\.lechange\.cn\/oms-online\/advertisementPush\/* - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/e\.dangdang\.com\/media\/api.+?\?action=getDeviceStartPage - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/user\/teenager\/status - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/emdcadvertise\.eastmoney\.com\/infoService - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/entree-ws\.igetget\.com\/oms\/front\/start\/push - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/entry\.ubixioe\.com\/mob\/sdk\/v\d\/endpoint - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/esdk\.tymcdn\.com\/dbGold\/m\/v2\/mobileLiveReveal\.do\? - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/fbchina\.flipchina\.cn\/v2\/ad\/query\/* - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/file\.mylyg\.net\/banner\/(fc[a-f0-9]{30})\.jpg - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/flowplus\.meituan\.net\/v\d\/\w+\/linglong\/\d+\.(gif|jpg|mp4) - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/foodie-api\.yiruikecorp\.com\/v\d\/(banner|notice)\/overview - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/ftapi\.10jqka\.com\.cn\/futgwapi\/api\/om\/v\d\/ad\/common\/transfer - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/fuss10\.elemecdn\.com\/.+?\/w\/640\/h\/\d{3,4} - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/g\.alicdn\.com\/living\/mesh-std-spec - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/gab\.122\.gov\.cn\/eapp\/m\/sysquery - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/games\.mobileapi\.hupu\.com\/interfaceAdMonitor - reject-img
+# 来源：AllInOne.sgmodule
+^https?:\/\/gateway\.36kr\.com\/api\/adx\/ad\/show - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/gateway\.abite\.com\/cotti-capi\/customer\/position\/list\?code\=cotti-launch-window - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/gateway\.shouqiev\.com(:8443)?\/fsda\/app\/bootImage\.json - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/gd\.10086\.cn\/gmccapp\/serv\/\?servicename=GMCCAPP_704_002_001_001 - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/gha\.ghac\.cn\:8081\/base\/app\/api\/ad\/query\?adType - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/god\.gameyw\.netease\.com\/v\d\/ad\/serving\/app-start - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/gorgon\.youdao\.com\/gorgon - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/gw-app-gateway\.gwmapp-w\.com\/app-api.*Type=APPSECONDAD - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/gw\.csdn\.net\/cms-app\/v\d+\/home_page\/open_advertisement - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/gx\.10086\.cn\/zt-portal\/gxhzg\/portal\/app\/api\/v - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/hc-ssp\.sm\.cn - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/helper\.2bulu\.com\/(greenPea\/queryTasks|proSpecial\/allData|saveSplashFrequencyStatistics|getPopInfo|getAppEntranceConfig|promote\/list|getSplash|outing\/reqFoundNewList|outing\/reqIndex) - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/hfapp-service\.qweather\.net\/.*\/ad\/ - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/home\.mi\.com\/cgi-op\/api\/v\d\/recommendation\/(banner|myTab|openingBanner) - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/home\.mi\.com\/cgi-op\/api\/v\d\/recommendation\/banner - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/hxqapi\.hiyun\.tv\/api\/notification\/plans - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/i1\.hoopchina\.com\.cn\/blogfile\/.+?_\d{3}x\d{4} - reject-img
+# 来源：AllInOne.sgmodule
+^https?:\/\/i\.zhaojinapp\.com\/APPAD - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/i\d\.hoopchina\.com\.cn/blogfile\/\d+\/\d+\/BbsImg\.(?<=(big.(png|jpg)))$ - reject-img
+# 来源：AllInOne.sgmodule
+^https?:\/\/iadmusicmat\.music\.126\.net\/.*?jpg$ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/iface2\.iqiyi\.com\/fusion\/3\.0\/fusion_switch - reject-img
+# 来源：AllInOne.sgmodule
+^https?:\/\/iface\.iqiyi\.com\/api\/getNewAdInfo - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/igetcool-gateway\.igetcool\.com\/app-api-other-server\/white\/open\/ads.json - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/img2\.autoimg\.cn\/admdfs\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/img\.meituan\.net\/(adunion|display|dpmobile|midas)\/\w+\.(gif|jpg|jpg\.webp)$ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/img\.umetrip\.com\/fs\/advert/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/img\d+\.10101111cdn\.com\/adpos\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/img\d+\.360buyimg\.com\/jddjadvertise\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/interface(\d)?\.music\.163\.com\/eapi\/(ad|abtest|sp|hot|store|search\/(specialkeyword|defaultkeyword|hot)) - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/interface(\d)?\.music\.163\.com\/w?e?api\/comment\/feed\/inserted - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/interface(\d)?\.music\.163\.com\/w?e?api\/comment\/hotcomment\/collect - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/interface(\d)?\.music\.163\.com\/w?e?api\/link\/position\/show\/resource - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/interface(\d)?\.music\.163\.com\/w?e?api\/v1\/content\/exposure\/comment - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/interface(\d)?\.music\.163\.com\/w?e?eapi\/resource-exposure\/config - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/intl\.iqiyi\.com\/ad_external\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/intl\.iqiyi\.com\/video\/advertise - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/iobs\.pingan\.com\.cn\/download\/icore-aops-base-dmz-prd\/YourSystemName - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/ios\.sspai\.com\/api\/v3\/recommend\/page\/get\?ad.*ios_home_modal - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/issuecdn\.baidupcs\.com\/issue\/netdisk\/(guanggao|ts_ad)\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/iyes\.youku\.com\/uts/v\d\/start - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/j1\.pupuapi\.com\/client\/marketing\/advertisement\/v1\? - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/jxd524\.github\.io\/iFreeTime\/xid32uxaoecnfv2\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/jz\.wacaijizhang\.com\/api\/banners\/newSplash - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/lban\.spdb\.com\.cn\/mspmk-web-component\/(getAdvList|prefetchAdvList)\.ah - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/lens\.leoao\.com\/lens\/.+(getUserScheme|queryAppBanners|Advert|popup) - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/list-app-m\.i4\.cn\/getopfstadinfo\.xhtml - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/lop-proxy\.jd\.com\/queryAppHomePageMarketingRecommendRuleConfigInfo - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/m-adphone\.wenhua\.com\.cn\/ - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/m\.ads\.8le8le\.com\/adShow - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/m\.api\.shaoxing\.com\.cn\/v\d\/start - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/m\.caijing\.com\.cn\/startup_ad_ios\.html$ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/m\.ctrip\.com\/html5\/webresource\/js\/iscroll\.js$ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/m\.ctrip\.com\/restapi\/[\w\/]+tripAds - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/m\.ctrip\.com\/restapi\/soa2\/\d+\/json\/getAdsList - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/m\.ibuscloud.com\/v2\/app\/getStartPage - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/m\.msyc\.cc\/app\/getBootPage\/v\d - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/m\.sd\.10086\.cn\/zapi\/app_common\/homeWelcome\/welcome.do - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/m\.stock\.pingan\.com\/restapi\/rmd\/open\/O\/api\/openAd - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/m\d\.amap\.com\/ws\/faas\/amap-navigation\/main-page-(assets|location)? - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/m\d\.amap\.com\/ws\/mapapi\/hint_text\/offline_data? - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/m\d\.amap\.com\/ws\/message\/notice\/list\? - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/m\d\.amap\.com\/ws\/valueadded\/alimama\/splash_screen\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/mama\.dxy\.com\/api\/cms\/client\/popup-window\/list - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/mangaapi\.manhuaren\.com\/v2\/public\/getShelfActivity - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/mapi\.mafengwo\.cn\/ad\/get_launch_ad_list\/v2 - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/mbs\.boc\.cn\/ubas-mgateway-static\/images\/advertType\/.+.jpg - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/mix-api\.camera360\.com\/v\d\/operational-positions - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/mob\.bz\.mgtv\.com\/odin\/c1\/channel\/ads\?_ - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/mob\.mddcloud\.com\.cn\/adApi\/advert - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/mob\.mddcloud\.com\.cn\/api\/(ad|advert)\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/mobads\.baidu\.com\/cpro\/ui\/mads.php - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/mobile\.da\.mgtv\.com\/json\/app\/bdboot - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/mobilead\.kuwo\.cn\/EcomResourceServer\/adBubble\/.+ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/mobileapi-v6\.elong\.com\/adgateway\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/mobileapi\.xiamenair\.com\/mobile-starter\/.+\/getStartAD - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/mp\.weixin\.qq\.com\/mp\/cps_product_info - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/mpos-pic\.helipay\.com\/upload\/images\/advertisment - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/ms\.jr\.jd\.com\/gw\/generic\/base\/(new)?na\/m\/adInfo - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/msg\.umengcloud\.com\/admsg\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/new-app-api\.ylyk\.com\/v1\/user\/myinfo\/adviser - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/newapp2\.szsmk\.com\/app\/config\/queryMainAd - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/newsuperapp\.ftms\.com\.cn\/app-bff\/.*openScreenPicture - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/nnapp\.cloudbae\.cn(:\d+)?\/mc\/api\/advert - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/notify\.baicizhan\.com\/rpc\/notify\/get_latest_notify - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/nuc\.api\.mgtv.com\/Logout - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/oneapp-api\.faw-vw\.com\/content\/.*Code=VWAPP_ICE_OPEN_SCREEN_ADS - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/open3\.vistastory\.com\/v3\/api.*get_popup - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/open3\.vistastory\.com\/v3\/api\/index\/loading_ad - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/open\.78dm\.net\/v\d\/site\/ad\/ - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/open\.taou\.com\/maimai\/launch_ad - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/otheve\.beacon\.qq\.com\/analytics\/upload\?sid=.* - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/p0\.pipi\.cn\/adAdmin\/\w+.jpg\? - reject-img
+# 来源：AllInOne.sgmodule
+^https?:\/\/p\d\.meituan\.net\/(bizad|wmbanner)\/\w+\.jpg - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/p\d\.meituan\.net\/(bizad|wmbanner|brandCpt)\/\w+\.jpg - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/p\d\.meituan\.net\/movie\/\w+\.jpg\?may_covertWebp - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/pages\.xiaohongshu\.com\/data\/native\/matrix_switches - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/pan-api\.bitqiu\.com\/activity\/(getPromoteGuide|getUrlList) - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/pan\.baidu\.com\/act\/v\d\/bchannel\/list - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/pan\.baidu\.com\/act\/v\d\/welfare\/list - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/patientgate\.91160\.com\/advert-api\/v\d\/advert - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/pcvideoyd\.titan\.mgtv\.com\/pb\/ - reject-img
+# 来源：AllInOne.sgmodule
+^https?:\/\/pic\d\.ajkimg\.com\/mat\/\w+\?imageMogr\d\/format\/jpg\/thumbnail\/\d{3}x\d{4}$ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/pjlapi\.paojd\.cn\/na\/pjlNa - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/promotion\.medlive\.cn\/getcover-v2\?app_name=medlive - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/qadx\.qinlinad\.com\/ad\/ - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/qcwx\.medproad\.com:8080\/ad\/ - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/r\.inews\.qq\.com\/(adsBlacklist|getBannerAds|getFullScreenPic|getNewsRemoteConfig|getQQNewsRemoteConfig|searchHotCatList|upLoadLoc) - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/r\.inews\.qq\.com\/getSplash - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/referee\.xiaohongshu\.com\/v\d\/stateReport - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/render-oss-cdn\.amap\.com\/render\/studio-dev\/image\/ - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/rengine-platform\.llsapp\.com\/auth\/api\/remoteResource\/darwin - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/res\.kfc\.com\.cn\/advertisement\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/rich\.kuwo\.cn\/AdService\/kaiping\/adinfo - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/richmanapi\.jxedt\.com\/api\/(ad|adplus|guideplus|banadplus) - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/s1\.api\.tv\.itc\.cn\/v\d\/mobile\/control\/switch\.json - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/s3plus\.meituan\.net\/.*\/brandcpt-vedio\/.*\?time - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/s\d\.zdmimg\.com\/www\/api\/v\d\/api\/thirdAd\.php - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/sdk\.alibaba\.com\.ailbaba\.me\/.*?\/v\d\/(version|top_notice\?|advert\?position=[^2]+) - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/sdk\.alibaba\.com\.ailbaba\.me\/dsx\.php\/v\d\/advert\?position=[^2]+ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/sdk\.alibaba\.com\.ailbaba\.me\/dsx\.php\/v\d\/top_notice\? - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/sdk\.tianmu\.mobi\/ad - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/sdkapp\.uve\.weibo\.com\/interface\/sdk\/actionad\.php - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/service\.4gtv\.tv\/4gtv\/Data\/(GetAD|ADLog) - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/sf3-fe-tos\.pglstatp-toutiao\.com\/obj\/ad-pattern\/renderer\/ - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/sf3-fe-tos\.pglstatp-toutiao\.com\/obj\/ad-pattern\/renderer\/package\.json - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/sh-gateway\.shihuo\.cn\/v\d\/services\/sh-adapi\/home\/screen - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/shop-api\.retail\.mi\.com\/mtop\/navi\/skywheel\/mishop\/splash - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/shopic\.sf-express\.com\/crm\/mobile\/common\/flashscreen - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/siteapi\.zaixs\.com\/.*\/start_ad - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/smsrebuild1\.mail\.10086\.cn\/together\/s - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/sns\.amap\.com\/ws\/msgbox\/pull? - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/spclient\.wg\.spotify\.com\/(ad-logic|ads|.+ad_slot|.+banners|.+canvases|.+cards|.+crashlytics|.+doubleclick.net|.+enabled-tracks|.+promoted_offer) - reject-img
+# 来源：AllInOne.sgmodule
+^https?:\/\/spclient\.wg\.spotify\.com\/.+ad_slot - reject-img
+# 来源：AllInOne.sgmodule
+^https?:\/\/spclient\.wg\.spotify\.com\/.+banners - reject-img
+# 来源：AllInOne.sgmodule
+^https?:\/\/spclient\.wg\.spotify\.com\/.+cards - reject-img
+# 来源：AllInOne.sgmodule
+^https?:\/\/spclient\.wg\.spotify\.com\/.+crashlytics - reject-img
+# 来源：AllInOne.sgmodule
+^https?:\/\/spclient\.wg\.spotify\.com\/.+doubleclick\.net - reject-img
+# 来源：AllInOne.sgmodule
+^https?:\/\/spclient\.wg\.spotify\.com\/.+promoted_offer - reject-img
+# 来源：AllInOne.sgmodule
+^https?:\/\/spclient\.wg\.spotify\.com\/ad-logic\/* - reject-img
+# 来源：AllInOne.sgmodule
+^https?:\/\/spclient\.wg\.spotify\.com\/ads\/* - reject-img
+# 来源：AllInOne.sgmodule
+^https?:\/\/ssl\.kohsocialapp\.qq\.com:\d+\/game\/buttons - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/sso\.lxjapp\.com\/\/chims\/servlet\/csGetLatestSoftwareVersionServlet - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/status\.boohee\.com\/api\/v\d\/app_square\/start_up_with_ad - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/superapp\.xgimi\.com\/api/v1\/app\/ad\/configs\?_sort=createdAt:Adesc - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/support\.you\.163\.com\/appversync\/check.do - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/switch\.jumpvg\.com\/jump\/(getlaunchad|recommend\/ad_conf) - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/syh\.zybang\.com\/com\/adx\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/tcmobileapi\.17usoft\.com\/appindexnew\/index\/getappindexconfig - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/td\.cgmcare\.cn\/api\/ad - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/tel\.mangaapi\.manhuaren\.com\/(v2\/public\/getStartUpMessage|v1\/public\/getStartPageAds) - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/tel\.mangaapi\.manhuaren\.com\/v2\/ad\/getMultiAdsStrategy - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/tiku\.zhan\.com\/Common\/newAd\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/tqt\.weibo\.cn\/api\/advert\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/tqt\.weibo\.cn\/overall\/redirect\.php\?r=(tqt_sdkad|tqtad) - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/track\.mm\.taou\.com/v\d\/track - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/tracker-download\.oss-cn-beijing\.aliyuncs\.com\/SIMPlus\/(ad_|AD\/) - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/u\d\.iqiyipic\.com\/image\/[\w\/]+\/oad_ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/v\d-api\.miaopai\.com\/miaopai\/advertisement\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/video\.dispatch\.tc\.qq\.com\/\w+\.p20\d\.1\.mp4 - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/vidz\.3hxq\.cn\/api\/app\/(miscs\/mine\/extensions|announcements\/home) - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/vip7\.fzwdyy\.cn:8083\/api\/getAdvertInfo - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/vip7\.fzwdyy\.cn:8083\/api\/getGOOGAdvert - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/vv\.video\.qq\.com\/getvmind\? - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/wallpaper\.soutushenqi\.com\/v\d\/dateSignature\/random - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/wallpaper\.soutushenqi\.com\/v\d\/home\/dialog - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/wap\.ngchina\.cn\/news\/adverts\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/web\.chelaile\.net\.cn\/api\/adpub\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/webboot\.zhangyue\.com\/zyapi\/bookstore\/ad\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/weibointl\.api\.weibo\.cn\/portal\.php\?a=get_coopen_ads - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/wmapi\.meituan\.com\/api\/v\d\/(openscreen\?ad|loadInfo\?|startpicture) - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/wmapi\.meituan\.com\/api\/v\d\/startpicture - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/www\.bodivis\.com\.cn\/app\/splashAdvertise - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/www\.cntv\.com\/nettv\/adp\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/www\.ctm\.net\/crm_api\/.*advertise - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/www\.flyert\.com\/api\/mobile\/index\.php\?module=advis - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/www\.flyertea\.com\/source\/plugin\/mobile\/mobile\.php\?module=advis - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/www\.inoreader\.com\/adv\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/www\.kujiale\.com\/app\/queryOpenPage - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/www\.meituan\.com\/api\/v\d\/appstatus\? - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/www\.pansearch\.me\/api\/adsite - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/www\.xiaohongshu\.com\/api\/sns\/v\d\/ads\/ - reject-dict
+# 来源：AllInOne.sgmodule
+^https?:\/\/www\.xiaohongshu\.com\/api\/sns\/v\d\/system_service\/splash_config - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/www\.xqpark\.cn\/xqParkApp\/resource\/getResource - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/www\.zjyilin\.com\/hykweb\/\/index\/openImg - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/xapi\.xinmanhua\.net\/splashgroups\?include=splashs - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/yanxuan\.nosdn\.127\.net\/(static-union\/)?.*\.gif - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/ytmsout\.radio\.cn\/publish\/recScreen\/getLoadPage - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/yunbusiness\.ccb\.com\/clp_service\/txCtrl\?txcode=(A3341A002|A3341A009) - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/yunbusiness\.ccb\.com\/clp_service\/txCtrl\?txcode=A3341A002 - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/yxhd\.hori-gz\.com\/\/jfmsApi\/commandWord\/commandWordInfo - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/yxyapi2\.yuxueyuan\.cn\/yxy-api-gateway\/api\/json\/advert\/getsAdStartScreen - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/yxyapi\d\.drcuiyutao\.com\/yxy-api-gateway\/api\/json\/advert\/ - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/yyfapi\.huatu\.com\/common\/ad\/ - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/zconfig\.alibabausercontent\.com\/zconfig - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/zjh5api\.189smarthome\.com:\d+\/xygj-config-api\/queryData - reject
+# 来源：AllInOne.sgmodule
+^https?:\/\/zjh5api\.ott4china\.com:8091\/cp-api\/view\/config\/pos - reject-200
+# 来源：AllInOne.sgmodule
+^https?:\/\/zjmbank\.js96008\.com:8090\/gw\/advert\/oprAdvertQry - reject-200
+# 来源：AllInOne.sgmodule
+https://dynamicad.kfc.com.cn/api/app5/homepage/ai/popup - reject-200
+# 来源：blockHTTPDNS.module
+^https?:\/\/203\.107\.1\.1/\d+/ss - reject
+# 来源：blockHTTPDNS.module
+^https?:\/\/203\.107\.1\.33/\d+/ss - reject
+# 来源：blockHTTPDNS.module
+^https?:\/\/203\.107\.1\.66/\d+/ss - reject
+# 来源：blockHTTPDNS.module
+^https?:\/\/203\.107\.1\.67/\d+/ss - reject
+# 来源：blockHTTPDNS.module
+^https?:\/\/203\.107\.1\.97/\d+/ss - reject
+# 来源：blockHTTPDNS.module
+^https?:\/\/2401:b180:2000:30::1c\/\d+\/d - reject
+# 来源：blockHTTPDNS.module
+^https?:\/\/2401:b180:2000:20::10\/\d+\/d - reject
+# 来源：blockHTTPDNS.module
+^https?:\/\/cdn\.wup\.huya\.com\/monitor\/monitor\.jsp - reject
+# 来源：blockHTTPDNS.module
+^https:\/\/gslbali\.ximalaya\.com\/linkeye-cloud\/httpdns\/ - reject
+
+[Map Local]
+# 来源：blockHTTPDNS.module
+^https?:\/\/appconf\.mail\.163\.com\/mailmaster\/api\/http\/urlConfig\.do$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+# 来源：blockHTTPDNS.module
+^https:\/\/msglb\.91160\.com\/msg\/outer\/broker\/get$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[Script]
+# 来源：AllInOne.sgmodule
+补充_哲也_解锁关键词屏蔽 = type=http-request,script-path=https://gist.githubusercontent.com/blackmatrix7/f5f780d0f56b319b6ad9848fd080bb18/raw/zheye.min.js,pattern=^(?!(?:^https:\/\/api\.zhihu\.com\/(?:bazaar\/float_window|market\/popovers_v2)|^https:\/\/api\.zhihu\.com\/(?:moments\/lastread|drama\/hot-drama-list)|^https:\/\/api\.zhihu\.com\/ab\/api\/v1\/products\/zhihu\/platforms\/ios\/config|^https:\/\/api\.zhihu\.com\/ad-style-service\/request|^https:\/\/api\.zhihu\.com\/comment_v5\/(?:articles|answers)\/\d+\/list-headers|^https:\/\/api\.zhihu\.com\/commercial_api\/(?:answer\/\d+\/bottom-v2|article\/\d+\/bottom-v2|banners_v3\/app_topstory_banner|launch_v2|real_time_launch_v2)|^https:\/\/api\.zhihu\.com\/content-distribution-core\/bubble\/common\/settings|^https:\/\/api\.zhihu\.com\/distribute\/rhea\/qa_ad_card\/h5\/recommendation\?|^https:\/\/api\.zhihu\.com\/me\/guides|^https:\/\/api\.zhihu\.com\/prague\/related_suggestion_native\/feed\?|^https:\/\/api\.zhihu\.com\/root\/window|^https:\/\/api\.zhihu\.com\/search\/(hot_search|preset_words)|^https:\/\/api\.zhihu\.com\/unlimited\/go\/my_card|^https:\/\/api\.zhihu\.com\/v5\.1\/topics\/answer\/\d+\/relation|^https:\/\/appcloud2\.zhihu\.com\/v3\/resource\?group_name=mp|^https:\/\/link\.zhihu\.com\/\?target=(?:https?)?(?:%3A|:)?(?:\/\/|%2F%2F)?(.*)|^https:\/\/www\.zhihu\.com\/api\/v4/(?:answers|questions)\/\d+/related-readings|^https:\/\/www\.zhihu\.com\/api\/v4\/hot_recommendation|^https:\/\/www\.zhihu\.com\/api\/v4\/mcn\/v2\/linkcards\?|^https:\/\/www\.zhihu\.com\/api\/v4\/search\/related_queries\/(?:article|answer)\/\d+|^https:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/mobile_banner|^https:\/\/zhstatic\.zhihu\.com\/brand-ad|^https:\/\/zhuanlan\.zhihu\.com\/api\/articles\/\d+\/recommendation))https?:\/\/api\.zhihu\.com\/feed-root\/block,requires-body=1
+# 来源：AllInOne.sgmodule
+补充_BiliBili_开屏去广告 = type=http-response,script-path=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/startup/startup.js,pattern=^(?!(?:^https:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.(app\.(show\.v1\.Popular\/Index|dynamic\.v2\.Dynamic\/DynAll|view(unite)?\.v1\.View\/(View|ViewProgress|RelatesFeed)|playurl\.v1\.PlayURL\/PlayView|playerunite\.v1\.Player\/PlayViewUnite)|polymer\.app\.search\.v1\.Search\/SearchAll|community\.service\.dm\.v1\.DM\/DmView|main\.community\.reply\.v1\.Reply\/MainList|pgc\.gateway\.player\.v2\.PlayURL\/PlayView)$|^https:\/\/ap[ip]\.bilibili\.com\/x\/(resource\/(top\/activity|patch\/tab(\/v2)?)|v2\/search\/square|vip\/ads\/materials)\?|^https:\/\/api\.bilibili\.com\/pgc\/activity\/deliver\/material\/receive\?|^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?|^https:\/\/api\.bilibili\.com\/pgc\/view\/v2\/app\/season\?|^https:\/\/api\.bilibili\.com\/x\/pd-proxy\/tracker\?|^https:\/\/api\.live\.bilibili\.com\/xlive\/(app-interface\/v2\/index\/feed|app-room\/v1\/index\/getInfoBy(Room|User))\?|^https:\/\/api\.live\.bilibili\.com\/xlive\/e-commerce-interface\/v1\/ecommerce-user\/get_shopping_info\?|^https:\/\/app\.bilibili\.com\/x\/resource\/show\/skin\?|^https:\/\/app\.bilibili\.com\/x\/resource\/show\/tab\/v2\?|^https:\/\/app\.bilibili\.com\/x\/v2\/account\/mine(\/ipad)?\?|^https:\/\/app\.bilibili\.com\/x\/v2\/account\/myinfo\?|^https:\/\/app\.bilibili\.com\/x\/v2\/feed\/index\/story\?|^https:\/\/app\.bilibili\.com\/x\/v2\/feed\/index\?|^https:\/\/app\.bilibili\.com\/x\/v2\/splash\/(list|show|event\/list2)\?|^https?:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Comic\/(?>Recommend|MoreRecommend|Flash|ListFlash|GetBubbles|GetActivityTab|GetCommonBanner|GetComicConfigPicList|SearchBanner|AppInit)|^https?:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Comment\/Main|^https?:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Home\/HomeFeed|^https?:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Shop\/GetShopItems|^https?:\/\/manga\.bilibili\.com\/twirp\/novel\.v\d\.Novel\/MoreRecommend|^https?:\/\/manga\.bilibili\.com\/twirp\/user\.v\d\.Read\/ActInfo|^https?:\/\/manga\.bilibili\.com\/twirp\/user\.v\d\.SeasonV\d\/GetSeasonInfo|^https?:\/\/manga\.bilibili\.com\/twirp\/user\.v\d\.User\/GetInitInfo|^https?:\/\/manga\.bilibili\.com\/twirp\/user\.v\d\.User\/UCenterConf))https?:\/\/app\.bilibili\.com\/x\/v2\/splash\/list,requires-body=1
+# 来源：AllInOne.sgmodule
+补充_Fa米家_开屏去广告 = type=http-response,script-path=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/startup/startup.js,pattern=^(?!(?:^https?:\/\/fmapp\.chinafamilymart\.com\.cn\/api\/app\/biz\/base\/appversion\/latest))https?:\/\/fmapp\.chinafamilymart\.com\.cn\/api\/app\/market\/start\/ad,requires-body=1
+# 来源：AllInOne.sgmodule
+补充_京东_开屏去广告 = type=http-response,script-path=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/startup/startup.js,pattern=^(?!(?:^https?:\/\/(info\.mina\.xiaoaisound|marketing-aibox\.v\.mitvos)\.com\/advertise(?!\/banner)|^https?:\/\/(info\.mina\.xiaoaisound|marketing-aibox\.v\.mitvos)\.com\/payGuide\/userCenter|^https?:\/\/(info\.mina\.xiaoaisound|marketing-aibox\.v\.mitvos)\.com\/popup))https?:\/\/hd\.mina\.mi\.com\/splashscreen\/alert,requires-body=1
+# 来源：AllInOne.sgmodule
+补充_哲也_优化推荐标签页 = type=http-response,script-path=https://gist.githubusercontent.com/blackmatrix7/f5f780d0f56b319b6ad9848fd080bb18/raw/zheye.min.js,pattern=^(?!(?:^https:\/\/(?:api|page-info)\.zhihu\.com\/(?:answers|articles)\/v2\/\d+|^https:\/\/api\.zhihu\.com\/(?:bazaar\/float_window|market\/popovers_v2)|^https:\/\/api\.zhihu\.com\/(?:moments\/lastread|drama\/hot-drama-list)|^https:\/\/api\.zhihu\.com\/(?:moments_v3|topstory\/hot-lists\/total|topstory\/recommend)|^https:\/\/api\.zhihu\.com\/ab\/api\/v1\/products\/zhihu\/platforms\/ios\/config|^https:\/\/api\.zhihu\.com\/ad-style-service\/request|^https:\/\/api\.zhihu\.com\/bazaar\/vip_tab\/header\?|^https:\/\/api\.zhihu\.com\/comment_v5\/(?:articles|answers)\/\d+\/list-headers|^https:\/\/api\.zhihu\.com\/commercial_api\/(?:answer\/\d+\/bottom-v2|article\/\d+\/bottom-v2|banners_v3\/app_topstory_banner|launch_v2|real_time_launch_v2)|^https:\/\/api\.zhihu\.com\/commercial_api\/app_float_layer|^https:\/\/api\.zhihu\.com\/content-distribution-core\/bubble\/common\/settings|^https:\/\/api\.zhihu\.com\/distribute\/rhea\/qa_ad_card\/h5\/recommendation\?|^https:\/\/api\.zhihu\.com\/feed\/render\/tab\/config\?|^https:\/\/api\.zhihu\.com\/me\/guides|^https:\/\/api\.zhihu\.com\/next-(?:bff|data|render)|^https:\/\/api\.zhihu\.com\/prague\/related_suggestion_native\/feed\?|^https:\/\/api\.zhihu\.com\/questions\/\d+(?:\/answers|\/feeds|\?include=)|^https:\/\/api\.zhihu\.com\/root\/tab|^https:\/\/api\.zhihu\.com\/root\/window|^https:\/\/api\.zhihu\.com\/search\/(hot_search|preset_words)|^https:\/\/api\.zhihu\.com\/search\/recommend_query\/v2\?|^https:\/\/api\.zhihu\.com\/unlimited\/go\/my_card|^https:\/\/api\.zhihu\.com\/v2\/topstory\/hot-lists\/everyone-seeing\?|^https:\/\/api\.zhihu\.com\/v5\.1\/topics\/answer\/\d+\/relation|^https:\/\/appcloud2\.zhihu\.com\/v3\/config|^https:\/\/appcloud2\.zhihu\.com\/v3\/resource\?group_name=mp|^https:\/\/link\.zhihu\.com\/\?target=(?:https?)?(?:%3A|:)?(?:\/\/|%2F%2F)?(.*)|^https:\/\/m-cloud\.zhihu\.com\/api\/cloud\/config\/all\?|^https:\/\/www\.zhihu\.com\/api\/v4/(?:answers|questions)\/\d+/related-readings|^https:\/\/www\.zhihu\.com\/api\/v4\/(?:articles|answers)\/\d+\/recommendations?\?|^https:\/\/www\.zhihu\.com\/api\/v4\/hot_recommendation|^https:\/\/www\.zhihu\.com\/api\/v4\/mcn\/v2\/linkcards\?|^https:\/\/www\.zhihu\.com\/api\/v4\/search\/related_queries\/(?:article|answer)\/\d+|^https:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/mobile_banner|^https:\/\/zhstatic\.zhihu\.com\/brand-ad|^https:\/\/zhuanlan\.zhihu\.com\/api\/articles\/\d+\/recommendation))https?:\/\/api\.zhihu\.com\/root\/tab\/v2,requires-body=1
+# 来源：AllInOne.sgmodule
+补充_哲也_关注列表优化 = type=http-response,script-path=https://gist.githubusercontent.com/blackmatrix7/f5f780d0f56b319b6ad9848fd080bb18/raw/zheye.min.js,pattern=^(?!(?:^https:\/\/(?:api|page-info)\.zhihu\.com\/(?:answers|articles)\/v2\/\d+|^https:\/\/api\.zhihu\.com\/(?:bazaar\/float_window|market\/popovers_v2)|^https:\/\/api\.zhihu\.com\/(?:moments\/lastread|drama\/hot-drama-list)|^https:\/\/api\.zhihu\.com\/(?:moments_v3|topstory\/hot-lists\/total|topstory\/recommend)|^https:\/\/api\.zhihu\.com\/ab\/api\/v1\/products\/zhihu\/platforms\/ios\/config|^https:\/\/api\.zhihu\.com\/ad-style-service\/request|^https:\/\/api\.zhihu\.com\/bazaar\/vip_tab\/header\?|^https:\/\/api\.zhihu\.com\/comment_v5\/(?:articles|answers)\/\d+\/list-headers|^https:\/\/api\.zhihu\.com\/commercial_api\/(?:answer\/\d+\/bottom-v2|article\/\d+\/bottom-v2|banners_v3\/app_topstory_banner|launch_v2|real_time_launch_v2)|^https:\/\/api\.zhihu\.com\/commercial_api\/app_float_layer|^https:\/\/api\.zhihu\.com\/content-distribution-core\/bubble\/common\/settings|^https:\/\/api\.zhihu\.com\/distribute\/rhea\/qa_ad_card\/h5\/recommendation\?|^https:\/\/api\.zhihu\.com\/feed\/render\/tab\/config\?|^https:\/\/api\.zhihu\.com\/me\/guides|^https:\/\/api\.zhihu\.com\/next-(?:bff|data|render)|^https:\/\/api\.zhihu\.com\/prague\/related_suggestion_native\/feed\?|^https:\/\/api\.zhihu\.com\/questions\/\d+(?:\/answers|\/feeds|\?include=)|^https:\/\/api\.zhihu\.com\/root\/tab|^https:\/\/api\.zhihu\.com\/root\/window|^https:\/\/api\.zhihu\.com\/search\/(hot_search|preset_words)|^https:\/\/api\.zhihu\.com\/search\/recommend_query\/v2\?|^https:\/\/api\.zhihu\.com\/unlimited\/go\/my_card|^https:\/\/api\.zhihu\.com\/v2\/topstory\/hot-lists\/everyone-seeing\?|^https:\/\/api\.zhihu\.com\/v5\.1\/topics\/answer\/\d+\/relation|^https:\/\/appcloud2\.zhihu\.com\/v3\/config|^https:\/\/appcloud2\.zhihu\.com\/v3\/resource\?group_name=mp|^https:\/\/link\.zhihu\.com\/\?target=(?:https?)?(?:%3A|:)?(?:\/\/|%2F%2F)?(.*)|^https:\/\/m-cloud\.zhihu\.com\/api\/cloud\/config\/all\?|^https:\/\/www\.zhihu\.com\/api\/v4/(?:answers|questions)\/\d+/related-readings|^https:\/\/www\.zhihu\.com\/api\/v4\/(?:articles|answers)\/\d+\/recommendations?\?|^https:\/\/www\.zhihu\.com\/api\/v4\/hot_recommendation|^https:\/\/www\.zhihu\.com\/api\/v4\/mcn\/v2\/linkcards\?|^https:\/\/www\.zhihu\.com\/api\/v4\/search\/related_queries\/(?:article|answer)\/\d+|^https:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/mobile_banner|^https:\/\/zhstatic\.zhihu\.com\/brand-ad|^https:\/\/zhuanlan\.zhihu\.com\/api\/articles\/\d+\/recommendation))https?:\/\/api\.zhihu\.com\/moments\/tab_v2,requires-body=1
+# 来源：AllInOne.sgmodule
+补充_哲也_同步黑名单 = type=http-response,script-path=https://gist.githubusercontent.com/blackmatrix7/f5f780d0f56b319b6ad9848fd080bb18/raw/zheye.min.js,pattern=^(?!(?:^https:\/\/(?:api|page-info)\.zhihu\.com\/(?:answers|articles)\/v2\/\d+|^https:\/\/api\.zhihu\.com\/(?:bazaar\/float_window|market\/popovers_v2)|^https:\/\/api\.zhihu\.com\/(?:moments\/lastread|drama\/hot-drama-list)|^https:\/\/api\.zhihu\.com\/(?:moments_v3|topstory\/hot-lists\/total|topstory\/recommend)|^https:\/\/api\.zhihu\.com\/ab\/api\/v1\/products\/zhihu\/platforms\/ios\/config|^https:\/\/api\.zhihu\.com\/ad-style-service\/request|^https:\/\/api\.zhihu\.com\/bazaar\/vip_tab\/header\?|^https:\/\/api\.zhihu\.com\/comment_v5\/(?:articles|answers)\/\d+\/list-headers|^https:\/\/api\.zhihu\.com\/commercial_api\/(?:answer\/\d+\/bottom-v2|article\/\d+\/bottom-v2|banners_v3\/app_topstory_banner|launch_v2|real_time_launch_v2)|^https:\/\/api\.zhihu\.com\/commercial_api\/app_float_layer|^https:\/\/api\.zhihu\.com\/content-distribution-core\/bubble\/common\/settings|^https:\/\/api\.zhihu\.com\/distribute\/rhea\/qa_ad_card\/h5\/recommendation\?|^https:\/\/api\.zhihu\.com\/feed\/render\/tab\/config\?|^https:\/\/api\.zhihu\.com\/me\/guides|^https:\/\/api\.zhihu\.com\/next-(?:bff|data|render)|^https:\/\/api\.zhihu\.com\/prague\/related_suggestion_native\/feed\?|^https:\/\/api\.zhihu\.com\/questions\/\d+(?:\/answers|\/feeds|\?include=)|^https:\/\/api\.zhihu\.com\/root\/tab|^https:\/\/api\.zhihu\.com\/root\/window|^https:\/\/api\.zhihu\.com\/search\/(hot_search|preset_words)|^https:\/\/api\.zhihu\.com\/search\/recommend_query\/v2\?|^https:\/\/api\.zhihu\.com\/unlimited\/go\/my_card|^https:\/\/api\.zhihu\.com\/v2\/topstory\/hot-lists\/everyone-seeing\?|^https:\/\/api\.zhihu\.com\/v5\.1\/topics\/answer\/\d+\/relation|^https:\/\/appcloud2\.zhihu\.com\/v3\/config|^https:\/\/appcloud2\.zhihu\.com\/v3\/resource\?group_name=mp|^https:\/\/link\.zhihu\.com\/\?target=(?:https?)?(?:%3A|:)?(?:\/\/|%2F%2F)?(.*)|^https:\/\/m-cloud\.zhihu\.com\/api\/cloud\/config\/all\?|^https:\/\/www\.zhihu\.com\/api\/v4/(?:answers|questions)\/\d+/related-readings|^https:\/\/www\.zhihu\.com\/api\/v4\/(?:articles|answers)\/\d+\/recommendations?\?|^https:\/\/www\.zhihu\.com\/api\/v4\/hot_recommendation|^https:\/\/www\.zhihu\.com\/api\/v4\/mcn\/v2\/linkcards\?|^https:\/\/www\.zhihu\.com\/api\/v4\/search\/related_queries\/(?:article|answer)\/\d+|^https:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/mobile_banner|^https:\/\/zhstatic\.zhihu\.com\/brand-ad|^https:\/\/zhuanlan\.zhihu\.com\/api\/articles\/\d+\/recommendation))https?:\/\/api\.zhihu\.com\/settings\/blocked_users,requires-body=1
+# 来源：AllInOne.sgmodule
+补充_哲也_回答信息流优化 = type=http-response,script-path=https://gist.githubusercontent.com/blackmatrix7/f5f780d0f56b319b6ad9848fd080bb18/raw/zheye.min.js,pattern=^(?!(?:^https:\/\/(?:api|page-info)\.zhihu\.com\/(?:answers|articles)\/v2\/\d+|^https:\/\/api\.zhihu\.com\/(?:bazaar\/float_window|market\/popovers_v2)|^https:\/\/api\.zhihu\.com\/(?:moments\/lastread|drama\/hot-drama-list)|^https:\/\/api\.zhihu\.com\/(?:moments_v3|topstory\/hot-lists\/total|topstory\/recommend)|^https:\/\/api\.zhihu\.com\/ab\/api\/v1\/products\/zhihu\/platforms\/ios\/config|^https:\/\/api\.zhihu\.com\/ad-style-service\/request|^https:\/\/api\.zhihu\.com\/bazaar\/vip_tab\/header\?|^https:\/\/api\.zhihu\.com\/comment_v5\/(?:articles|answers)\/\d+\/list-headers|^https:\/\/api\.zhihu\.com\/commercial_api\/(?:answer\/\d+\/bottom-v2|article\/\d+\/bottom-v2|banners_v3\/app_topstory_banner|launch_v2|real_time_launch_v2)|^https:\/\/api\.zhihu\.com\/commercial_api\/app_float_layer|^https:\/\/api\.zhihu\.com\/content-distribution-core\/bubble\/common\/settings|^https:\/\/api\.zhihu\.com\/distribute\/rhea\/qa_ad_card\/h5\/recommendation\?|^https:\/\/api\.zhihu\.com\/feed\/render\/tab\/config\?|^https:\/\/api\.zhihu\.com\/me\/guides|^https:\/\/api\.zhihu\.com\/next-(?:bff|data|render)|^https:\/\/api\.zhihu\.com\/prague\/related_suggestion_native\/feed\?|^https:\/\/api\.zhihu\.com\/questions\/\d+(?:\/answers|\/feeds|\?include=)|^https:\/\/api\.zhihu\.com\/root\/tab|^https:\/\/api\.zhihu\.com\/root\/window|^https:\/\/api\.zhihu\.com\/search\/(hot_search|preset_words)|^https:\/\/api\.zhihu\.com\/search\/recommend_query\/v2\?|^https:\/\/api\.zhihu\.com\/unlimited\/go\/my_card|^https:\/\/api\.zhihu\.com\/v2\/topstory\/hot-lists\/everyone-seeing\?|^https:\/\/api\.zhihu\.com\/v5\.1\/topics\/answer\/\d+\/relation|^https:\/\/appcloud2\.zhihu\.com\/v3\/config|^https:\/\/appcloud2\.zhihu\.com\/v3\/resource\?group_name=mp|^https:\/\/link\.zhihu\.com\/\?target=(?:https?)?(?:%3A|:)?(?:\/\/|%2F%2F)?(.*)|^https:\/\/m-cloud\.zhihu\.com\/api\/cloud\/config\/all\?|^https:\/\/www\.zhihu\.com\/api\/v4/(?:answers|questions)\/\d+/related-readings|^https:\/\/www\.zhihu\.com\/api\/v4\/(?:articles|answers)\/\d+\/recommendations?\?|^https:\/\/www\.zhihu\.com\/api\/v4\/hot_recommendation|^https:\/\/www\.zhihu\.com\/api\/v4\/mcn\/v2\/linkcards\?|^https:\/\/www\.zhihu\.com\/api\/v4\/search\/related_queries\/(?:article|answer)\/\d+|^https:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/mobile_banner|^https:\/\/zhstatic\.zhihu\.com\/brand-ad|^https:\/\/zhuanlan\.zhihu\.com\/api\/articles\/\d+\/recommendation))https?:\/\/api\.zhihu\.com\/next-render,requires-body=1
+# 来源：AllInOne.sgmodule
+补充_哲也_回答列表优化 = type=http-response,script-path=https://gist.githubusercontent.com/blackmatrix7/f5f780d0f56b319b6ad9848fd080bb18/raw/zheye.min.js,pattern=^(?!(?:^https:\/\/(?:api|page-info)\.zhihu\.com\/(?:answers|articles)\/v2\/\d+|^https:\/\/api\.zhihu\.com\/(?:bazaar\/float_window|market\/popovers_v2)|^https:\/\/api\.zhihu\.com\/(?:moments\/lastread|drama\/hot-drama-list)|^https:\/\/api\.zhihu\.com\/(?:moments_v3|topstory\/hot-lists\/total|topstory\/recommend)|^https:\/\/api\.zhihu\.com\/ab\/api\/v1\/products\/zhihu\/platforms\/ios\/config|^https:\/\/api\.zhihu\.com\/ad-style-service\/request|^https:\/\/api\.zhihu\.com\/bazaar\/vip_tab\/header\?|^https:\/\/api\.zhihu\.com\/comment_v5\/(?:articles|answers)\/\d+\/list-headers|^https:\/\/api\.zhihu\.com\/commercial_api\/(?:answer\/\d+\/bottom-v2|article\/\d+\/bottom-v2|banners_v3\/app_topstory_banner|launch_v2|real_time_launch_v2)|^https:\/\/api\.zhihu\.com\/commercial_api\/app_float_layer|^https:\/\/api\.zhihu\.com\/content-distribution-core\/bubble\/common\/settings|^https:\/\/api\.zhihu\.com\/distribute\/rhea\/qa_ad_card\/h5\/recommendation\?|^https:\/\/api\.zhihu\.com\/feed\/render\/tab\/config\?|^https:\/\/api\.zhihu\.com\/me\/guides|^https:\/\/api\.zhihu\.com\/next-(?:bff|data|render)|^https:\/\/api\.zhihu\.com\/prague\/related_suggestion_native\/feed\?|^https:\/\/api\.zhihu\.com\/questions\/\d+(?:\/answers|\/feeds|\?include=)|^https:\/\/api\.zhihu\.com\/root\/tab|^https:\/\/api\.zhihu\.com\/root\/window|^https:\/\/api\.zhihu\.com\/search\/(hot_search|preset_words)|^https:\/\/api\.zhihu\.com\/search\/recommend_query\/v2\?|^https:\/\/api\.zhihu\.com\/unlimited\/go\/my_card|^https:\/\/api\.zhihu\.com\/v2\/topstory\/hot-lists\/everyone-seeing\?|^https:\/\/api\.zhihu\.com\/v5\.1\/topics\/answer\/\d+\/relation|^https:\/\/appcloud2\.zhihu\.com\/v3\/config|^https:\/\/appcloud2\.zhihu\.com\/v3\/resource\?group_name=mp|^https:\/\/link\.zhihu\.com\/\?target=(?:https?)?(?:%3A|:)?(?:\/\/|%2F%2F)?(.*)|^https:\/\/m-cloud\.zhihu\.com\/api\/cloud\/config\/all\?|^https:\/\/www\.zhihu\.com\/api\/v4/(?:answers|questions)\/\d+/related-readings|^https:\/\/www\.zhihu\.com\/api\/v4\/(?:articles|answers)\/\d+\/recommendations?\?|^https:\/\/www\.zhihu\.com\/api\/v4\/hot_recommendation|^https:\/\/www\.zhihu\.com\/api\/v4\/mcn\/v2\/linkcards\?|^https:\/\/www\.zhihu\.com\/api\/v4\/search\/related_queries\/(?:article|answer)\/\d+|^https:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/mobile_banner|^https:\/\/zhstatic\.zhihu\.com\/brand-ad|^https:\/\/zhuanlan\.zhihu\.com\/api\/articles\/\d+\/recommendation))https?:\/\/api\.zhihu\.com\/(v4\/)?questions\/\d+,requires-body=1
+# 来源：AllInOne.sgmodule
+补充_哲也_处理用户信息 = type=http-response,script-path=https://gist.githubusercontent.com/blackmatrix7/f5f780d0f56b319b6ad9848fd080bb18/raw/zheye.min.js,pattern=^(?!(?:^https:\/\/(?:api|page-info)\.zhihu\.com\/(?:answers|articles)\/v2\/\d+|^https:\/\/api\.zhihu\.com\/(?:bazaar\/float_window|market\/popovers_v2)|^https:\/\/api\.zhihu\.com\/(?:moments\/lastread|drama\/hot-drama-list)|^https:\/\/api\.zhihu\.com\/(?:moments_v3|topstory\/hot-lists\/total|topstory\/recommend)|^https:\/\/api\.zhihu\.com\/ab\/api\/v1\/products\/zhihu\/platforms\/ios\/config|^https:\/\/api\.zhihu\.com\/ad-style-service\/request|^https:\/\/api\.zhihu\.com\/bazaar\/vip_tab\/header\?|^https:\/\/api\.zhihu\.com\/comment_v5\/(?:articles|answers)\/\d+\/list-headers|^https:\/\/api\.zhihu\.com\/commercial_api\/(?:answer\/\d+\/bottom-v2|article\/\d+\/bottom-v2|banners_v3\/app_topstory_banner|launch_v2|real_time_launch_v2)|^https:\/\/api\.zhihu\.com\/commercial_api\/app_float_layer|^https:\/\/api\.zhihu\.com\/content-distribution-core\/bubble\/common\/settings|^https:\/\/api\.zhihu\.com\/distribute\/rhea\/qa_ad_card\/h5\/recommendation\?|^https:\/\/api\.zhihu\.com\/feed\/render\/tab\/config\?|^https:\/\/api\.zhihu\.com\/me\/guides|^https:\/\/api\.zhihu\.com\/next-(?:bff|data|render)|^https:\/\/api\.zhihu\.com\/prague\/related_suggestion_native\/feed\?|^https:\/\/api\.zhihu\.com\/questions\/\d+(?:\/answers|\/feeds|\?include=)|^https:\/\/api\.zhihu\.com\/root\/tab|^https:\/\/api\.zhihu\.com\/root\/window|^https:\/\/api\.zhihu\.com\/search\/(hot_search|preset_words)|^https:\/\/api\.zhihu\.com\/search\/recommend_query\/v2\?|^https:\/\/api\.zhihu\.com\/unlimited\/go\/my_card|^https:\/\/api\.zhihu\.com\/v2\/topstory\/hot-lists\/everyone-seeing\?|^https:\/\/api\.zhihu\.com\/v5\.1\/topics\/answer\/\d+\/relation|^https:\/\/appcloud2\.zhihu\.com\/v3\/config|^https:\/\/appcloud2\.zhihu\.com\/v3\/resource\?group_name=mp|^https:\/\/link\.zhihu\.com\/\?target=(?:https?)?(?:%3A|:)?(?:\/\/|%2F%2F)?(.*)|^https:\/\/m-cloud\.zhihu\.com\/api\/cloud\/config\/all\?|^https:\/\/www\.zhihu\.com\/api\/v4/(?:answers|questions)\/\d+/related-readings|^https:\/\/www\.zhihu\.com\/api\/v4\/(?:articles|answers)\/\d+\/recommendations?\?|^https:\/\/www\.zhihu\.com\/api\/v4\/hot_recommendation|^https:\/\/www\.zhihu\.com\/api\/v4\/mcn\/v2\/linkcards\?|^https:\/\/www\.zhihu\.com\/api\/v4\/search\/related_queries\/(?:article|answer)\/\d+|^https:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/mobile_banner|^https:\/\/zhstatic\.zhihu\.com\/brand-ad|^https:\/\/zhuanlan\.zhihu\.com\/api\/articles\/\d+\/recommendation))https?:\/\/api\.zhihu\.com\/people,requires-body=1
+# 来源：AllInOne.sgmodule
+补充_哲也_文章页广告移除 = type=http-response,script-path=https://gist.githubusercontent.com/blackmatrix7/f5f780d0f56b319b6ad9848fd080bb18/raw/zheye.min.js,pattern=^(?!(?:^https:\/\/(?:api|page-info)\.zhihu\.com\/(?:answers|articles)\/v2\/\d+|^https:\/\/api\.zhihu\.com\/(?:bazaar\/float_window|market\/popovers_v2)|^https:\/\/api\.zhihu\.com\/(?:moments\/lastread|drama\/hot-drama-list)|^https:\/\/api\.zhihu\.com\/(?:moments_v3|topstory\/hot-lists\/total|topstory\/recommend)|^https:\/\/api\.zhihu\.com\/ab\/api\/v1\/products\/zhihu\/platforms\/ios\/config|^https:\/\/api\.zhihu\.com\/ad-style-service\/request|^https:\/\/api\.zhihu\.com\/bazaar\/vip_tab\/header\?|^https:\/\/api\.zhihu\.com\/comment_v5\/(?:articles|answers)\/\d+\/list-headers|^https:\/\/api\.zhihu\.com\/commercial_api\/(?:answer\/\d+\/bottom-v2|article\/\d+\/bottom-v2|banners_v3\/app_topstory_banner|launch_v2|real_time_launch_v2)|^https:\/\/api\.zhihu\.com\/commercial_api\/app_float_layer|^https:\/\/api\.zhihu\.com\/content-distribution-core\/bubble\/common\/settings|^https:\/\/api\.zhihu\.com\/distribute\/rhea\/qa_ad_card\/h5\/recommendation\?|^https:\/\/api\.zhihu\.com\/feed\/render\/tab\/config\?|^https:\/\/api\.zhihu\.com\/me\/guides|^https:\/\/api\.zhihu\.com\/next-(?:bff|data|render)|^https:\/\/api\.zhihu\.com\/prague\/related_suggestion_native\/feed\?|^https:\/\/api\.zhihu\.com\/questions\/\d+(?:\/answers|\/feeds|\?include=)|^https:\/\/api\.zhihu\.com\/root\/tab|^https:\/\/api\.zhihu\.com\/root\/window|^https:\/\/api\.zhihu\.com\/search\/(hot_search|preset_words)|^https:\/\/api\.zhihu\.com\/search\/recommend_query\/v2\?|^https:\/\/api\.zhihu\.com\/unlimited\/go\/my_card|^https:\/\/api\.zhihu\.com\/v2\/topstory\/hot-lists\/everyone-seeing\?|^https:\/\/api\.zhihu\.com\/v5\.1\/topics\/answer\/\d+\/relation|^https:\/\/appcloud2\.zhihu\.com\/v3\/config|^https:\/\/appcloud2\.zhihu\.com\/v3\/resource\?group_name=mp|^https:\/\/link\.zhihu\.com\/\?target=(?:https?)?(?:%3A|:)?(?:\/\/|%2F%2F)?(.*)|^https:\/\/m-cloud\.zhihu\.com\/api\/cloud\/config\/all\?|^https:\/\/www\.zhihu\.com\/api\/v4/(?:answers|questions)\/\d+/related-readings|^https:\/\/www\.zhihu\.com\/api\/v4\/(?:articles|answers)\/\d+\/recommendations?\?|^https:\/\/www\.zhihu\.com\/api\/v4\/hot_recommendation|^https:\/\/www\.zhihu\.com\/api\/v4\/mcn\/v2\/linkcards\?|^https:\/\/www\.zhihu\.com\/api\/v4\/search\/related_queries\/(?:article|answer)\/\d+|^https:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/mobile_banner|^https:\/\/zhstatic\.zhihu\.com\/brand-ad|^https:\/\/zhuanlan\.zhihu\.com\/api\/articles\/\d+\/recommendation))https:\/\/api\.zhihu\.com\/articles\/v\d\/\d+,requires-body=1
+# 来源：AllInOne.sgmodule
+补充_哲也_消息优化 = type=http-response,script-path=https://gist.githubusercontent.com/blackmatrix7/f5f780d0f56b319b6ad9848fd080bb18/raw/zheye.min.js,pattern=^(?!(?:^https:\/\/(?:api|page-info)\.zhihu\.com\/(?:answers|articles)\/v2\/\d+|^https:\/\/api\.zhihu\.com\/(?:bazaar\/float_window|market\/popovers_v2)|^https:\/\/api\.zhihu\.com\/(?:moments\/lastread|drama\/hot-drama-list)|^https:\/\/api\.zhihu\.com\/(?:moments_v3|topstory\/hot-lists\/total|topstory\/recommend)|^https:\/\/api\.zhihu\.com\/ab\/api\/v1\/products\/zhihu\/platforms\/ios\/config|^https:\/\/api\.zhihu\.com\/ad-style-service\/request|^https:\/\/api\.zhihu\.com\/bazaar\/vip_tab\/header\?|^https:\/\/api\.zhihu\.com\/comment_v5\/(?:articles|answers)\/\d+\/list-headers|^https:\/\/api\.zhihu\.com\/commercial_api\/(?:answer\/\d+\/bottom-v2|article\/\d+\/bottom-v2|banners_v3\/app_topstory_banner|launch_v2|real_time_launch_v2)|^https:\/\/api\.zhihu\.com\/commercial_api\/app_float_layer|^https:\/\/api\.zhihu\.com\/content-distribution-core\/bubble\/common\/settings|^https:\/\/api\.zhihu\.com\/distribute\/rhea\/qa_ad_card\/h5\/recommendation\?|^https:\/\/api\.zhihu\.com\/feed\/render\/tab\/config\?|^https:\/\/api\.zhihu\.com\/me\/guides|^https:\/\/api\.zhihu\.com\/next-(?:bff|data|render)|^https:\/\/api\.zhihu\.com\/prague\/related_suggestion_native\/feed\?|^https:\/\/api\.zhihu\.com\/questions\/\d+(?:\/answers|\/feeds|\?include=)|^https:\/\/api\.zhihu\.com\/root\/tab|^https:\/\/api\.zhihu\.com\/root\/window|^https:\/\/api\.zhihu\.com\/search\/(hot_search|preset_words)|^https:\/\/api\.zhihu\.com\/search\/recommend_query\/v2\?|^https:\/\/api\.zhihu\.com\/unlimited\/go\/my_card|^https:\/\/api\.zhihu\.com\/v2\/topstory\/hot-lists\/everyone-seeing\?|^https:\/\/api\.zhihu\.com\/v5\.1\/topics\/answer\/\d+\/relation|^https:\/\/appcloud2\.zhihu\.com\/v3\/config|^https:\/\/appcloud2\.zhihu\.com\/v3\/resource\?group_name=mp|^https:\/\/link\.zhihu\.com\/\?target=(?:https?)?(?:%3A|:)?(?:\/\/|%2F%2F)?(.*)|^https:\/\/m-cloud\.zhihu\.com\/api\/cloud\/config\/all\?|^https:\/\/www\.zhihu\.com\/api\/v4/(?:answers|questions)\/\d+/related-readings|^https:\/\/www\.zhihu\.com\/api\/v4\/(?:articles|answers)\/\d+\/recommendations?\?|^https:\/\/www\.zhihu\.com\/api\/v4\/hot_recommendation|^https:\/\/www\.zhihu\.com\/api\/v4\/mcn\/v2\/linkcards\?|^https:\/\/www\.zhihu\.com\/api\/v4\/search\/related_queries\/(?:article|answer)\/\d+|^https:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/mobile_banner|^https:\/\/zhstatic\.zhihu\.com\/brand-ad|^https:\/\/zhuanlan\.zhihu\.com\/api\/articles\/\d+\/recommendation))https?:\/\/api\.zhihu\.com\/notifications\/v3\/(message\?|timeline\/entry\/system_message),requires-body=1
+# 来源：AllInOne.sgmodule
+补充_哲也_热榜优化 = type=http-response,script-path=https://gist.githubusercontent.com/blackmatrix7/f5f780d0f56b319b6ad9848fd080bb18/raw/zheye.min.js,pattern=^(?!(?:^https:\/\/(?:api|page-info)\.zhihu\.com\/(?:answers|articles)\/v2\/\d+|^https:\/\/api\.zhihu\.com\/(?:bazaar\/float_window|market\/popovers_v2)|^https:\/\/api\.zhihu\.com\/(?:moments\/lastread|drama\/hot-drama-list)|^https:\/\/api\.zhihu\.com\/(?:moments_v3|topstory\/hot-lists\/total|topstory\/recommend)|^https:\/\/api\.zhihu\.com\/ab\/api\/v1\/products\/zhihu\/platforms\/ios\/config|^https:\/\/api\.zhihu\.com\/ad-style-service\/request|^https:\/\/api\.zhihu\.com\/bazaar\/vip_tab\/header\?|^https:\/\/api\.zhihu\.com\/comment_v5\/(?:articles|answers)\/\d+\/list-headers|^https:\/\/api\.zhihu\.com\/commercial_api\/(?:answer\/\d+\/bottom-v2|article\/\d+\/bottom-v2|banners_v3\/app_topstory_banner|launch_v2|real_time_launch_v2)|^https:\/\/api\.zhihu\.com\/commercial_api\/app_float_layer|^https:\/\/api\.zhihu\.com\/content-distribution-core\/bubble\/common\/settings|^https:\/\/api\.zhihu\.com\/distribute\/rhea\/qa_ad_card\/h5\/recommendation\?|^https:\/\/api\.zhihu\.com\/feed\/render\/tab\/config\?|^https:\/\/api\.zhihu\.com\/me\/guides|^https:\/\/api\.zhihu\.com\/next-(?:bff|data|render)|^https:\/\/api\.zhihu\.com\/prague\/related_suggestion_native\/feed\?|^https:\/\/api\.zhihu\.com\/questions\/\d+(?:\/answers|\/feeds|\?include=)|^https:\/\/api\.zhihu\.com\/root\/tab|^https:\/\/api\.zhihu\.com\/root\/window|^https:\/\/api\.zhihu\.com\/search\/(hot_search|preset_words)|^https:\/\/api\.zhihu\.com\/search\/recommend_query\/v2\?|^https:\/\/api\.zhihu\.com\/unlimited\/go\/my_card|^https:\/\/api\.zhihu\.com\/v2\/topstory\/hot-lists\/everyone-seeing\?|^https:\/\/api\.zhihu\.com\/v5\.1\/topics\/answer\/\d+\/relation|^https:\/\/appcloud2\.zhihu\.com\/v3\/config|^https:\/\/appcloud2\.zhihu\.com\/v3\/resource\?group_name=mp|^https:\/\/link\.zhihu\.com\/\?target=(?:https?)?(?:%3A|:)?(?:\/\/|%2F%2F)?(.*)|^https:\/\/m-cloud\.zhihu\.com\/api\/cloud\/config\/all\?|^https:\/\/www\.zhihu\.com\/api\/v4/(?:answers|questions)\/\d+/related-readings|^https:\/\/www\.zhihu\.com\/api\/v4\/(?:articles|answers)\/\d+\/recommendations?\?|^https:\/\/www\.zhihu\.com\/api\/v4\/hot_recommendation|^https:\/\/www\.zhihu\.com\/api\/v4\/mcn\/v2\/linkcards\?|^https:\/\/www\.zhihu\.com\/api\/v4\/search\/related_queries\/(?:article|answer)\/\d+|^https:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/mobile_banner|^https:\/\/zhstatic\.zhihu\.com\/brand-ad|^https:\/\/zhuanlan\.zhihu\.com\/api\/articles\/\d+\/recommendation))https?:\/\/api\.zhihu\.com\/topstory\/hot-lists?(\?|\/),requires-body=1
+# 来源：AllInOne.sgmodule
+补充_哲也_猜你想搜去广告 = type=http-response,script-path=https://gist.githubusercontent.com/blackmatrix7/f5f780d0f56b319b6ad9848fd080bb18/raw/zheye.min.js,pattern=^(?!(?:^https:\/\/(?:api|page-info)\.zhihu\.com\/(?:answers|articles)\/v2\/\d+|^https:\/\/api\.zhihu\.com\/(?:bazaar\/float_window|market\/popovers_v2)|^https:\/\/api\.zhihu\.com\/(?:moments\/lastread|drama\/hot-drama-list)|^https:\/\/api\.zhihu\.com\/(?:moments_v3|topstory\/hot-lists\/total|topstory\/recommend)|^https:\/\/api\.zhihu\.com\/ab\/api\/v1\/products\/zhihu\/platforms\/ios\/config|^https:\/\/api\.zhihu\.com\/ad-style-service\/request|^https:\/\/api\.zhihu\.com\/bazaar\/vip_tab\/header\?|^https:\/\/api\.zhihu\.com\/comment_v5\/(?:articles|answers)\/\d+\/list-headers|^https:\/\/api\.zhihu\.com\/commercial_api\/(?:answer\/\d+\/bottom-v2|article\/\d+\/bottom-v2|banners_v3\/app_topstory_banner|launch_v2|real_time_launch_v2)|^https:\/\/api\.zhihu\.com\/commercial_api\/app_float_layer|^https:\/\/api\.zhihu\.com\/content-distribution-core\/bubble\/common\/settings|^https:\/\/api\.zhihu\.com\/distribute\/rhea\/qa_ad_card\/h5\/recommendation\?|^https:\/\/api\.zhihu\.com\/feed\/render\/tab\/config\?|^https:\/\/api\.zhihu\.com\/me\/guides|^https:\/\/api\.zhihu\.com\/next-(?:bff|data|render)|^https:\/\/api\.zhihu\.com\/prague\/related_suggestion_native\/feed\?|^https:\/\/api\.zhihu\.com\/questions\/\d+(?:\/answers|\/feeds|\?include=)|^https:\/\/api\.zhihu\.com\/root\/tab|^https:\/\/api\.zhihu\.com\/root\/window|^https:\/\/api\.zhihu\.com\/search\/(hot_search|preset_words)|^https:\/\/api\.zhihu\.com\/search\/recommend_query\/v2\?|^https:\/\/api\.zhihu\.com\/unlimited\/go\/my_card|^https:\/\/api\.zhihu\.com\/v2\/topstory\/hot-lists\/everyone-seeing\?|^https:\/\/api\.zhihu\.com\/v5\.1\/topics\/answer\/\d+\/relation|^https:\/\/appcloud2\.zhihu\.com\/v3\/config|^https:\/\/appcloud2\.zhihu\.com\/v3\/resource\?group_name=mp|^https:\/\/link\.zhihu\.com\/\?target=(?:https?)?(?:%3A|:)?(?:\/\/|%2F%2F)?(.*)|^https:\/\/m-cloud\.zhihu\.com\/api\/cloud\/config\/all\?|^https:\/\/www\.zhihu\.com\/api\/v4/(?:answers|questions)\/\d+/related-readings|^https:\/\/www\.zhihu\.com\/api\/v4\/(?:articles|answers)\/\d+\/recommendations?\?|^https:\/\/www\.zhihu\.com\/api\/v4\/hot_recommendation|^https:\/\/www\.zhihu\.com\/api\/v4\/mcn\/v2\/linkcards\?|^https:\/\/www\.zhihu\.com\/api\/v4\/search\/related_queries\/(?:article|answer)\/\d+|^https:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/mobile_banner|^https:\/\/zhstatic\.zhihu\.com\/brand-ad|^https:\/\/zhuanlan\.zhihu\.com\/api\/articles\/\d+\/recommendation))https?:\/\/api\.zhihu\.com\/search\/recommend_query,requires-body=1
+# 来源：AllInOne.sgmodule
+补充_哲也_评论优化 = type=http-response,script-path=https://gist.githubusercontent.com/blackmatrix7/f5f780d0f56b319b6ad9848fd080bb18/raw/zheye.min.js,pattern=^(?!(?:^https:\/\/(?:api|page-info)\.zhihu\.com\/(?:answers|articles)\/v2\/\d+|^https:\/\/api\.zhihu\.com\/(?:bazaar\/float_window|market\/popovers_v2)|^https:\/\/api\.zhihu\.com\/(?:moments\/lastread|drama\/hot-drama-list)|^https:\/\/api\.zhihu\.com\/(?:moments_v3|topstory\/hot-lists\/total|topstory\/recommend)|^https:\/\/api\.zhihu\.com\/ab\/api\/v1\/products\/zhihu\/platforms\/ios\/config|^https:\/\/api\.zhihu\.com\/ad-style-service\/request|^https:\/\/api\.zhihu\.com\/bazaar\/vip_tab\/header\?|^https:\/\/api\.zhihu\.com\/comment_v5\/(?:articles|answers)\/\d+\/list-headers|^https:\/\/api\.zhihu\.com\/commercial_api\/(?:answer\/\d+\/bottom-v2|article\/\d+\/bottom-v2|banners_v3\/app_topstory_banner|launch_v2|real_time_launch_v2)|^https:\/\/api\.zhihu\.com\/commercial_api\/app_float_layer|^https:\/\/api\.zhihu\.com\/content-distribution-core\/bubble\/common\/settings|^https:\/\/api\.zhihu\.com\/distribute\/rhea\/qa_ad_card\/h5\/recommendation\?|^https:\/\/api\.zhihu\.com\/feed\/render\/tab\/config\?|^https:\/\/api\.zhihu\.com\/me\/guides|^https:\/\/api\.zhihu\.com\/next-(?:bff|data|render)|^https:\/\/api\.zhihu\.com\/prague\/related_suggestion_native\/feed\?|^https:\/\/api\.zhihu\.com\/questions\/\d+(?:\/answers|\/feeds|\?include=)|^https:\/\/api\.zhihu\.com\/root\/tab|^https:\/\/api\.zhihu\.com\/root\/window|^https:\/\/api\.zhihu\.com\/search\/(hot_search|preset_words)|^https:\/\/api\.zhihu\.com\/search\/recommend_query\/v2\?|^https:\/\/api\.zhihu\.com\/unlimited\/go\/my_card|^https:\/\/api\.zhihu\.com\/v2\/topstory\/hot-lists\/everyone-seeing\?|^https:\/\/api\.zhihu\.com\/v5\.1\/topics\/answer\/\d+\/relation|^https:\/\/appcloud2\.zhihu\.com\/v3\/config|^https:\/\/appcloud2\.zhihu\.com\/v3\/resource\?group_name=mp|^https:\/\/link\.zhihu\.com\/\?target=(?:https?)?(?:%3A|:)?(?:\/\/|%2F%2F)?(.*)|^https:\/\/m-cloud\.zhihu\.com\/api\/cloud\/config\/all\?|^https:\/\/www\.zhihu\.com\/api\/v4/(?:answers|questions)\/\d+/related-readings|^https:\/\/www\.zhihu\.com\/api\/v4\/(?:articles|answers)\/\d+\/recommendations?\?|^https:\/\/www\.zhihu\.com\/api\/v4\/hot_recommendation|^https:\/\/www\.zhihu\.com\/api\/v4\/mcn\/v2\/linkcards\?|^https:\/\/www\.zhihu\.com\/api\/v4\/search\/related_queries\/(?:article|answer)\/\d+|^https:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/mobile_banner|^https:\/\/zhstatic\.zhihu\.com\/brand-ad|^https:\/\/zhuanlan\.zhihu\.com\/api\/articles\/\d+\/recommendation))https?:\/\/api\.zhihu\.com\/(comment_v5\/)?(answers|comments?|articles|pins)\/\d+\/(root_|child_)?comments?,requires-body=1
+# 来源：AllInOne.sgmodule
+补充_哲也_评论摘要优化 = type=http-response,script-path=https://gist.githubusercontent.com/blackmatrix7/f5f780d0f56b319b6ad9848fd080bb18/raw/zheye.min.js,pattern=^(?!(?:^https:\/\/(?:api|page-info)\.zhihu\.com\/(?:answers|articles)\/v2\/\d+|^https:\/\/api\.zhihu\.com\/(?:bazaar\/float_window|market\/popovers_v2)|^https:\/\/api\.zhihu\.com\/(?:moments\/lastread|drama\/hot-drama-list)|^https:\/\/api\.zhihu\.com\/(?:moments_v3|topstory\/hot-lists\/total|topstory\/recommend)|^https:\/\/api\.zhihu\.com\/ab\/api\/v1\/products\/zhihu\/platforms\/ios\/config|^https:\/\/api\.zhihu\.com\/ad-style-service\/request|^https:\/\/api\.zhihu\.com\/bazaar\/vip_tab\/header\?|^https:\/\/api\.zhihu\.com\/comment_v5\/(?:articles|answers)\/\d+\/list-headers|^https:\/\/api\.zhihu\.com\/commercial_api\/(?:answer\/\d+\/bottom-v2|article\/\d+\/bottom-v2|banners_v3\/app_topstory_banner|launch_v2|real_time_launch_v2)|^https:\/\/api\.zhihu\.com\/commercial_api\/app_float_layer|^https:\/\/api\.zhihu\.com\/content-distribution-core\/bubble\/common\/settings|^https:\/\/api\.zhihu\.com\/distribute\/rhea\/qa_ad_card\/h5\/recommendation\?|^https:\/\/api\.zhihu\.com\/feed\/render\/tab\/config\?|^https:\/\/api\.zhihu\.com\/me\/guides|^https:\/\/api\.zhihu\.com\/next-(?:bff|data|render)|^https:\/\/api\.zhihu\.com\/prague\/related_suggestion_native\/feed\?|^https:\/\/api\.zhihu\.com\/questions\/\d+(?:\/answers|\/feeds|\?include=)|^https:\/\/api\.zhihu\.com\/root\/tab|^https:\/\/api\.zhihu\.com\/root\/window|^https:\/\/api\.zhihu\.com\/search\/(hot_search|preset_words)|^https:\/\/api\.zhihu\.com\/search\/recommend_query\/v2\?|^https:\/\/api\.zhihu\.com\/unlimited\/go\/my_card|^https:\/\/api\.zhihu\.com\/v2\/topstory\/hot-lists\/everyone-seeing\?|^https:\/\/api\.zhihu\.com\/v5\.1\/topics\/answer\/\d+\/relation|^https:\/\/appcloud2\.zhihu\.com\/v3\/config|^https:\/\/appcloud2\.zhihu\.com\/v3\/resource\?group_name=mp|^https:\/\/link\.zhihu\.com\/\?target=(?:https?)?(?:%3A|:)?(?:\/\/|%2F%2F)?(.*)|^https:\/\/m-cloud\.zhihu\.com\/api\/cloud\/config\/all\?|^https:\/\/www\.zhihu\.com\/api\/v4/(?:answers|questions)\/\d+/related-readings|^https:\/\/www\.zhihu\.com\/api\/v4\/(?:articles|answers)\/\d+\/recommendations?\?|^https:\/\/www\.zhihu\.com\/api\/v4\/hot_recommendation|^https:\/\/www\.zhihu\.com\/api\/v4\/mcn\/v2\/linkcards\?|^https:\/\/www\.zhihu\.com\/api\/v4\/search\/related_queries\/(?:article|answer)\/\d+|^https:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/mobile_banner|^https:\/\/zhstatic\.zhihu\.com\/brand-ad|^https:\/\/zhuanlan\.zhihu\.com\/api\/articles\/\d+\/recommendation))https?:\/\/www\.zhihu\.com\/api\/v4\/comment_v5\/answers\/\d+\/abstract_comment\?,requires-body=1
+# 来源：AllInOne.sgmodule
+补充_哲也_预置关键词优化 = type=http-response,script-path=https://gist.githubusercontent.com/blackmatrix7/f5f780d0f56b319b6ad9848fd080bb18/raw/zheye.min.js,pattern=^(?!(?:^https:\/\/(?:api|page-info)\.zhihu\.com\/(?:answers|articles)\/v2\/\d+|^https:\/\/api\.zhihu\.com\/(?:bazaar\/float_window|market\/popovers_v2)|^https:\/\/api\.zhihu\.com\/(?:moments\/lastread|drama\/hot-drama-list)|^https:\/\/api\.zhihu\.com\/(?:moments_v3|topstory\/hot-lists\/total|topstory\/recommend)|^https:\/\/api\.zhihu\.com\/ab\/api\/v1\/products\/zhihu\/platforms\/ios\/config|^https:\/\/api\.zhihu\.com\/ad-style-service\/request|^https:\/\/api\.zhihu\.com\/bazaar\/vip_tab\/header\?|^https:\/\/api\.zhihu\.com\/comment_v5\/(?:articles|answers)\/\d+\/list-headers|^https:\/\/api\.zhihu\.com\/commercial_api\/(?:answer\/\d+\/bottom-v2|article\/\d+\/bottom-v2|banners_v3\/app_topstory_banner|launch_v2|real_time_launch_v2)|^https:\/\/api\.zhihu\.com\/commercial_api\/app_float_layer|^https:\/\/api\.zhihu\.com\/content-distribution-core\/bubble\/common\/settings|^https:\/\/api\.zhihu\.com\/distribute\/rhea\/qa_ad_card\/h5\/recommendation\?|^https:\/\/api\.zhihu\.com\/feed\/render\/tab\/config\?|^https:\/\/api\.zhihu\.com\/me\/guides|^https:\/\/api\.zhihu\.com\/next-(?:bff|data|render)|^https:\/\/api\.zhihu\.com\/prague\/related_suggestion_native\/feed\?|^https:\/\/api\.zhihu\.com\/questions\/\d+(?:\/answers|\/feeds|\?include=)|^https:\/\/api\.zhihu\.com\/root\/tab|^https:\/\/api\.zhihu\.com\/root\/window|^https:\/\/api\.zhihu\.com\/search\/(hot_search|preset_words)|^https:\/\/api\.zhihu\.com\/search\/recommend_query\/v2\?|^https:\/\/api\.zhihu\.com\/unlimited\/go\/my_card|^https:\/\/api\.zhihu\.com\/v2\/topstory\/hot-lists\/everyone-seeing\?|^https:\/\/api\.zhihu\.com\/v5\.1\/topics\/answer\/\d+\/relation|^https:\/\/appcloud2\.zhihu\.com\/v3\/config|^https:\/\/appcloud2\.zhihu\.com\/v3\/resource\?group_name=mp|^https:\/\/link\.zhihu\.com\/\?target=(?:https?)?(?:%3A|:)?(?:\/\/|%2F%2F)?(.*)|^https:\/\/m-cloud\.zhihu\.com\/api\/cloud\/config\/all\?|^https:\/\/www\.zhihu\.com\/api\/v4/(?:answers|questions)\/\d+/related-readings|^https:\/\/www\.zhihu\.com\/api\/v4\/(?:articles|answers)\/\d+\/recommendations?\?|^https:\/\/www\.zhihu\.com\/api\/v4\/hot_recommendation|^https:\/\/www\.zhihu\.com\/api\/v4\/mcn\/v2\/linkcards\?|^https:\/\/www\.zhihu\.com\/api\/v4\/search\/related_queries\/(?:article|answer)\/\d+|^https:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/mobile_banner|^https:\/\/zhstatic\.zhihu\.com\/brand-ad|^https:\/\/zhuanlan\.zhihu\.com\/api\/articles\/\d+\/recommendation))https?:\/\/api\.zhihu\.com\/search\/preset_words\?,requires-body=1
+# 来源：AllInOne.sgmodule
+补充_嘀嗒出行_开屏去广告 = type=http-response,script-path=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/startup/startup.js,pattern=^(?!(?:^https?:\/\/capis(-?\w*)?\.didapinche\.com\/publish\/api\/upgrade|^https?:\/\/capis(-\d)?\.didapinche\.com\/ad\/|^https?:\/\/capis(-\d)?\.didapinche\.com\/adbase|^https?:\/\/www\.didapinche\.com\/app\/adstat\/))https?:\/\/capis(-?\w*)?\.didapinche\.com\/ad\/cx\/startup\?,requires-body=1
+# 来源：AllInOne.sgmodule
+补充_多点_开屏去广告 = type=http-response,script-path=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/startup/startup.js,pattern=^(?!(?:^https?:\/\/cmsapi\.wifi8\.com\/v\d\/(emptyAd|adNew)\/))https?:\/\/cmsapi\.dmall\.com\/app\/home\/homepageStartUpPic,requires-body=1
+# 来源：AllInOne.sgmodule
+补充_美团外卖_开屏去广告 = type=http-response,script-path=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/startup/startup.js,pattern=^(?!(?:^https?:\/\/(s3plus|flowplus)\.meituan\.net\/v\d\/\w+\/linglong\/\w+\.(gif|jpg|mp4)|^https?:\/\/awp-assets\.meituan\.net\/hfe\/fep\/\w+\.json|^https?:\/\/cdb\.meituan\.com\/marketing\/source\/getPageSlotList|^https?:\/\/ddplus\.meituan\.net\/v\d\/mss_\w+\/(?>ehc|titansx|ddblue|edfu)\/|^https?:\/\/ddplus\.meituan\.net\/v\d\/mss_\w+\/picassovc|^https?:\/\/img\.meituan\.net\/(?>dpmobile|goodsawardpic)\/|^https?:\/\/img\.meituan\.net\/bizad\/bizad_brandCpt_\d+\.jpg|^https?:\/\/img\.meituan\.net\/goodsawardpic\/[a-f0-9]+\.png\.webp|^https?:\/\/img\.meituan\.net\/goodsawardpic\/\w+\.gif|^https?:\/\/mall\.meituan\.com\/api\/c\/homepage\/bubble\/operate\/info|^https?:\/\/mall\.meituan\.com\/api\/c\/homepage\/splash|^https?:\/\/p\.meituan\.com\/api\/privacy\/config|^https?:\/\/p\d\.meituan\.net\/nrpresourcevenus\/\w+\.gif|^https?:\/\/p\d\.meituan\.net\/travelcube\/(?!c129a661)\w+\.gif|^https?:\/\/peisongapi\.meituan\.com\/client\/getInitiateImage|^https?:\/\/portal-portm\.meituan\.com\/horn_ios\/mergeRequest|^https?:\/\/rms\.meituan\.com\/api\/v\d\/rmsmina\/c\/queryWechatAdvertisement|^https?:\/\/s3plus\.meituan\.net\/ocean-blk-index\/index\/blk_conf|^https?:\/\/s3plus\.meituan\.net\/ocean-blk-index\/index\/blk_conf_73\.json|^https?:\/\/s3plus\.meituan\.net\/v1\/mss_\w+\/(brandcpt-vedio|waimai-alita)\/\w+\.zip$|^https?:\/\/wmapi\.meituan\.com\/api\/v7\/(loadInfo|openscreen|startpicture)\?))https?:\/\/wmapi\.meituan\.com\/api\/v\d+\/loadInfo?,requires-body=1
+# 来源：YouTube.Enhance.sgmodule
+补充_youtube.response = type=http-response,pattern=^(?!(?:^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch)|^https?:\/\/.+\.googleapis.com/.+ad_break|^https?:\/\/.+\.googleapis.com/.+log_event|^https?:\/\/.+\.googleapis.com/adsmeasurement))https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/config(?:\?.*)?$,requires-body=1,max-size=-1,binary-body-mode=1,script-path=https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Youtube/youtube.response.js,argument="{"captionLang":"{{{字幕翻译语言}}}","blockUpload":{{{屏蔽上传按钮}}},"blockImmersive":{{{屏蔽选段按钮}}},"blockShorts":{{{屏蔽Shorts按钮}}},"debug":{{{启用调试模式}}}}"
+# 来源：YouTube.Enhance.sgmodule
+补充_youtube.request.init = type=http-request,pattern=^(?!(?:^https:\/\/rr[\w-]+\.googlevideo\.com\/initplayback\?))https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&ack.*,requires-body=1,max-size=-1,binary-body-mode=1,script-path=https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Youtube/youtube.request.js,argument="{"captionLang":"{{{字幕翻译语言}}}"}"
+
+[MITM]
+hostname = %APPEND% *.1rtb.net, *.5eplay.com, *.ahhhhfs.com, *.anythinktech.com, *.bdstatic.com, *.chelaile.net.cn, *.chelaileapp.cn, *.cupid.iqiyi.com, *.ddly666.top, *.didapinche.com, *.fenbi.com, *.google.cn, *.hoopchina.com, *.k.sohu.com, *.kwcdn.kuwo.cn, *.laichon.com, *.mting.info, *.ott.cibntv.net, *.peopleapp.com, *.ranfenghd.com, *.reader.qq.com, *.smkj33.top, *.tianmu.mobi, *.tipatipa.xyz, *.tslt.xyz, *.tv.sohu.com, *.umetrip.com, *.uve.weibo.com, *.v2ex.com, *.weathercn.com, *.xbwpys.com, *.yuanfudao.com, *.zdmimg.com, *.zongheng.com, *api.oray.net, *cupid.iqiyi.com, 101.227.139.118, 103.41.167.*, 116.85.2.14, 116.85.2.15, 120.241.*, 140.179.224.63, 212.129.159.79, 3dd0be8a-54fe-43ff-a0e7-f670c4f20432.bspapp.com, 3pp.starbucks.com.cn, 47.100.65.202, a-zA-Z0-9_-.admobile.top, a.jxjt888.top, ad.cj.sina.cn, ad.maoyan.com, ads-img-al.xhscdn.com, ads.closeli.cn, ads.ishansong.com, adv.ccb.com, advertise.bczeducation.cn, adx.zuoyebang.com, aikanvod.miguvideo.com, alittle-tea.oss-cn-shanghai.aliyuncs.com, ap.dongqiudi.com, apapia-sqk.manmanbuy.com, api*.musical.ly, api*.pangle.io, api-fouth-mem.huazhu.com, api-mifit-cn2.zepp.com, api-one.wallstcn.com, api.00bang.cn, api.369cx.cn, api.abema.io, api.ahmobile.cn, api.aliyundrive.com, api.applovefrom.com, api.blibee.com, api.bspapp.com, api.caiyunapp.com, api.catch.gift, api.cdmcaac.com, api.dnurse.com, api.hellobike.com, api.ireader.mobi, api.ishansong.com, api.jk.cn, api.kmovie.gifshow.com, api.kuaidihelp.com, api.kurobbs.com, api.livelab.com.cn, api.m.mi.com, api.maoyan.com, api.medlive.cn, api.merach.com, api.moomoo.com, api.mwee.cn, api.qd-metro.com, api.qiuduoduo.cn, api.shenyin.name, api.smart.jd.com, api.songguo7.com, api.taou.com, api.vuevideo.net, api.waitwaitpay.com, api.weibo.cn, api.xiachufang.com, api.xiaoheihe.cn, api.yizhibo.com, api.ys7.com, api.zcool.com.cn, api.zhuishushenqi.com, api1.34580.com, api2.picooc.com, apimobile.meituan.com, apiproxy.zuche.com, apis.alenable.com, app-api.medsci.cn, app-cdn.2q10.com, app-gateway.leisuapi.com, app-gw.csdn.net, app.ap.d3yuiw4.com, app.api.ke.com, app.api.qjjfin.com, app.biliintl.com, app.c.nf.migu.cn, app.ddpai.com, app.dewu.com, app.duxiaoman.com, app.ibuscloud.com, app.jiantou8.com, app.mixcapp.com, app.poizon.com, app.yinlun.cc, apprn.pizzahut.com.cn, apps.teamair.cn, apps.workair.cn, appuser-static.huolala.cn, b.zhuishushenqi.com, bbs-api.miyoushe.com, bvmind.qqvideo.tc.qq.com, c.jxjt888.top, c.tieba.baidu.com, cappapi.alittle-tea.com, carapp.gtmc.com.cn, careapi.oclean.com, cdn.api.fotoable.com, cdn.fivecdm.com, cdn.web.chelaile.net.cn, cdns.chinastock.com.cn, client-api-v*.oray.com, client-api.oray.com, clientaccess.10086.cn, cmsapi.dmall.com, cmt.comp.360os.com, cn-app.narwaltech.com, cn.ultraiso.net, coco-com.e.verystar.net, comic.321mh.com, comicapi.manhuashe.com, content-understand-strategy.sm.cn, cq11344-app-https-api-1.ictun.com, customer-app.sto.cn, d.syshhc.top, data-collector.soulapp.cn, device-box.onethingpcs.com, dili.bdatu.com, dj.palmestore.com, dock.tenchii.com, dynamicad.kfc.com.cn, emdcadvertise.eastmoney.com, emdcadvise.eastmoney.com, entree-ws.igetget.com, esdk.tymcdn.com, file.mylyg.net, foodie-api.yiruikecorp.com, fscdn.zto.com, ftapi.10jqka.com.cn, g.syshhc.top, gameapi.hellobike.com, gateway.abite.com, gateway.cotticoffee.com, gateway2.etnet.com.hk, gd.10086.cn, gg.caixin.com, go.heytea.com, gorgon.youdao.com, gw-app-gateway.gwmapp-w.com, gw-passenger-wap.01zhuanche.com, gw.csdn.net, gx.10086.cn, gz.gongzijx.com, hc-ssp.sm.cn, hd.mina.mi.com, helper.2bulu.com, htwkop.xiaojukeji.com, hwimg.beingfine.cn, hxqapi.hiyun.tv, hypersnap.mairuan.com, i.zhaojinapp.com, iadmusicmat.music.com, igetcool-gateway.igetcool.com, image.suning.cn, images.qmai.cn, img*.10101111cdn.com, img*.360buyimg.com, img.rr.tv, img2.autoimg.cn, info.mina.mi.com, iyes.youku.com, jabi.coding.net, js-ad.ayximgs.com.ad-universe-cdn.hzhcbkj.cn, jt.jxjt888.top, jxd524.github.io, jz.wacaijizhang.com, logoshejishi.mairuan.com, lop-proxy.jd.com, m-adphone.wenhua.com.cn, m.ads.8le8le.com, m.api.shaoxing.com.cn, m.caijing.com.cn, m.meitun.com, m.msyc.cc, m.sd.10086.cn, m.stock.pingan.com, m.xgjyouhui.com, mage*.if.qidian.com, mama.dxy.com, mapi.weibo.com, mbs.boc.cn, member.lxjchina.com.cn, mgw.mpaas.cn-hangzhou.aliyuncs.com, miniapp.sexytea2013.com, minicap.caocaokeji.cn, minifm.maxxipoint.com, miniprogram.ishansong.com, mix-api.camera360.com, mobilead.kuwo.cn, mobileapi-v6.elong.com, mobilepaas.abchina.com.cn, msg.umengcloud.com, mxsa.mxbc.net, mystore-gw.watsonsvip.com.cn, nam.veta.naver.com, napi.ithome.com, new.vip.weibo.cn, newapp2.szsmk.com, newsuperapp.ftms.com.cn, newton.gumingnc.com, notify.baicizhan.com, open-cms-api.quark.cn, open-cms-api.uc.cn, open.78dm.net, orders.kfc.com.cn, page-info.zhihu.com, pages.xiaohongshu.com, passenger.t3go.cn, passengerapi.saicmobility.com, passport.biliintl.com, patientgate.91160.com, pdapis.pdnews.cn, pic*.ajkimg.com, pinggai*.caixin.com, pjlapi.paojd.cn, promo.xueqiu.com, promotion.medlive.cn, pzoap.moedot.com, qadx.qinlinad.com, qapi.huolala.cn, qcwx.medproad.com, qj.bpojie.com, r.inews.qq.com, r2.gzyct.com, referee.xiaohongshu.com, render-oss-cdn.amap.com, rengine-platform.llsapp.com, rich.kuwo.cn, s1.api.tv.itc.cn, shop-api.retail.mi.com, shopic.sf-express.com, siteapi.zaixs.com, smsrebuild1.mail.10086.cn, sns.amap.com, ssl.kohsocialapp.qq.com, sso.lxjapp.com, sto-customer-app.oss-cn-shanghai.aliyuncs.co, sto-customer-app.oss-cn-shanghai.aliyuncs.com, superapp.kiwa-tech.com, superapp.xgimi.com, supplier-api.imdada.cn, suyun-guest.daojia.com, suyun-user.daojia.com, switch.jumpvg.com, tan.ipnas.ltd, td.cgmcare.cn, tiku.zhan.com, tk.lanjiyin.com, tm-api.pin-dao.cn, tqt.weibo.cn, track.mm.taou.com, tracker-download.oss-cn-beijing.aliyuncs.com, triangle.wearemanner.com, tvapp.guilaile.cn, u*.iqiyipic.com, ump.ems.com.cn, uranus.sharedaka.com, v*-api.miaopai.com, video.dispatch.tc.qq.com, vidz.3hxq.cn, vod-movie.maoyan.com, wallpaper.soutushenqi.com, wap.js.10086.cn, wap.ngchina.cn, wcprd.hilton.com, web-render.zhihu.com, webchatapp.fcbox.com, wechat-api.i-xiaoma.com.cn, weibointl.api.weibo.cn, wmapi.meituan.com, wp3.lobdol.cn, www.123pan.com, www.51devapp.com, www.abbyychina.com, www.aicoin.cn, www.alienskins.cn, www.anydeskchina.cn, www.bartender.cc, www.bbkj.work, www.benbenfx.xyz, www.betterzip.com, www.betterzip.net, www.betterzipcn.com, www.betterzipcn.net, www.beyondcompare.cc, www.bingdianhuanyuan.cn, www.bodivis.com.cn, www.chemdraw.com.cn, www.cntv.com, www.codesoftchina.com, www.coreldrawchina.com, www.crossoverchina.com, www.ctm.net, www.deppon.com, www.dongmansoft.com, www.earmasterchina.cn, www.easyrecoverychina.com, www.ediuschina.com, www.firefox.com.cn, www.flstudiochina.com, www.flyertea.com, www.folxchina.cn, www.formysql.com, www.freeheikeji.cn, www.g.cn, www.guitarpro.cc, www.huishenghuiying.com.cn, www.hypeapp.cn, www.iconworkshop.cn, www.idmchina.net, www.ign.xn--fiqs8s, www.imazingchina.com, www.imindmap.cc, www.inoreader.com, www.jd.com, www.jihehuaban.com.cn, www.kingdeecn.cn, www.kujiale.com, www.laoguikeji.cn, www.logoshejishi.com, www.luping.net.cn, www.mathtype.cn, www.meituan.com, www.mi.com, www.mindmanager.cc, www.mindmanager.cn, www.mindmapper.cc, www.mycleanmymac.com, www.nicelabel.cc, www.ntfsformac.cn, www.officesoftcn.com, www.overturechina.com, www.pansearch.me, www.passwordrecovery.cn, www.pdfexpert.cc, www.photozoomchina.com, www.shankejingling.com, www.suning.com, www.xitongqingli.com, www.xqpark.cn, www.xshellcn.com, www.yhd.com, www.yuanchengxiezuo.com, www.zbrushcn.com, www.zjyilin.com, wx.bthhotels.com, wx.maoyan.com, wx.wxqqurl.cn, wxa.wxs.qq.com, wxapp.bestwehotel.com, wxproj.seeyouyima.com, xapi.xinmanhua.net, xcx.xianbaow.com, you.163.com, ytmsout.radio.cn, yxhd.hori-gz.com, yxyapi*.drcuiyutao.com, yyfapi.huatu.com, zjh5api.189smarthome.com, zjh5api.ott4china.com, zjmbank.js96008.com, 203.107.1.1, 203.107.1.33, 203.107.1.66, 203.107.1.67, 203.107.1.97, 2401:b180:2000:30::1c, 2401:b180:2000:20::10, amdc.alipay.com, msglb.91160.com, *.googlevideo.com
